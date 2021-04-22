@@ -37,6 +37,12 @@ namespace Server
                 sp.GetRequiredService<IOptions<MyDatabaseSettings>>().Value);
 
             services.AddSingleton<KartaService>();
+            services.AddSingleton<KlijentService>();
+            services.AddSingleton<PredstavaService>();
+            services.AddSingleton<RezervacijaService>();
+            services.AddSingleton<SalaService>();
+            services.AddSingleton<ZahtevZaPovracajNovcaService>();
+            services.AddSingleton<ZaposlenService>();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
@@ -50,8 +56,6 @@ namespace Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1"));
             }
 
             app.UseHttpsRedirection();
