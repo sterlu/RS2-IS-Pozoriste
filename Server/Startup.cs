@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace Server
 {
@@ -48,6 +49,8 @@ namespace Server
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
 
             services.AddCors();
+
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +60,10 @@ namespace Server
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseSpaStaticFiles();
+            }
 
             app.UseHttpsRedirection();
 
@@ -64,9 +71,16 @@ namespace Server
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+
+            app.UseSpa(spa =>
             {
-                endpoints.MapControllers();
+                spa.Options.SourcePath = "ClientApp";
+
+                if (env.IsDevelopment())
+                {
+                    spa.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

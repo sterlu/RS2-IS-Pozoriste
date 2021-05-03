@@ -1,0 +1,27 @@
+<div>
+  <form (ngSubmit)="onSubmit()" #formRef="ngForm">
+    <div class="form-group">
+      <label for="nazivPredstave">Ime</label>
+      <input type="text" class="form-control" id="nazivPredstave" required [(ngModel)]="model.nazivPredstave" name="nazivPredstave">
+    </div>
+
+    <div class="form-group">
+      <label for="opis">Opis</label>
+      <textarea class="form-control" id="opis" [(ngModel)]="model.opis" name="opis"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="trajanje">Trajanje (min)</label>
+      <input type="number" class="form-control" id="trajanje" [(ngModel)]="model.trajanje" name="trajanje">
+    </div>
+
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select class="form-control" id="status" required [(ngModel)]="model.status" name="status">
+        <option *ngFor="let pow of statuses" [value]="pow">{{pow}}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="!formRef.form.valid">Sačuvaj</button>
+  </form>
+</div>

@@ -22,7 +22,7 @@ namespace Server.Models
         [JsonProperty("opis")]
         public string Opis { get; set; }
 
-        [BsonElement("stats")]
+        [BsonElement("status")]
         [JsonProperty("status")]
         public string Status { get; set; }
 
