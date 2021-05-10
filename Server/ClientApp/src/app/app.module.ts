@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { PredstaveComponent } from './predstave/predstave.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 import { PredstavaFormComponent } from './predstava-form/predstava-form.component';
+import { PredstavaComponent } from './predstave/predstava/predstava.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PredstaveComponent,
     NavSidebarComponent,
-    PredstavaFormComponent
+    PredstavaFormComponent,
+    PredstavaComponent
   ],
   imports: [
     BrowserModule,

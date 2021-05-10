@@ -1,0 +1,10 @@
+<div class="predstava-wrapper">
+  <div class="info-wrapper">
+    <h3>{{predstava.nazivPredstave}}</h3>
+    <h4>Opis: {{predstava.opis}}</h4>
+    <h4>Status: {{predstava.status}}</h4>
+  </div>
+  <div class="buttons-wrapper" *ngIf="true">
+    <a [routerLink]="['/predstava/izmeni', predstava.Id]">Izmeni</a>
+  </div>
+</div>
