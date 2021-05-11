@@ -4,7 +4,7 @@ export class Predstava {
     public opis: string,
     public status: string,
     public trajanje: number,
-    public id: string = '',
+    public Id: string = '',
   ) {
   }
 }

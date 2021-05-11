@@ -1,10 +1,12 @@
-<div class="predstava-wrapper">
-  <div class="info-wrapper">
-    <h3>{{predstava.nazivPredstave}}</h3>
-    <h4>Opis: {{predstava.opis}}</h4>
-    <h4>Status: {{predstava.status}}</h4>
-  </div>
-  <div class="buttons-wrapper" *ngIf="true">
-    <a [routerLink]="['/predstava/izmeni', predstava.Id]">Izmeni</a>
-  </div>
-</div>
+<mat-card class="predstava-wrapper">
+  <mat-card-title>{{predstava.nazivPredstave}}</mat-card-title>
+  <mat-card-subtitle>{{predstava.status}}</mat-card-subtitle>
+  <mat-card-content>
+    <p>Opis: {{predstava.opis}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Rezerviši</button>
+    <button mat-button>Obavesti me</button>
+    <button mat-button [routerLink]="['/predstava/izmeni', predstava.Id]">Izmeni</button>
+  </mat-card-actions>
+</mat-card>

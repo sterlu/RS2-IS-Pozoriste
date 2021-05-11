@@ -1,26 +1,35 @@
 <div>
   <form (ngSubmit)="onSubmit()" #formRef="ngForm">
-    <div class="form-group">
-      <label for="nazivPredstave">Ime</label>
-      <input type="text" class="form-control" id="nazivPredstave" required [(ngModel)]="model.nazivPredstave" name="nazivPredstave">
-    </div>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Ime</mat-label>
+        <input matInput class="form-control" id="nazivPredstave" required [(ngModel)]="model.nazivPredstave"
+               name="nazivPredstave">
+      </mat-form-field>
+    </p>
 
-    <div class="form-group">
-      <label for="opis">Opis</label>
-      <textarea class="form-control" id="opis" [(ngModel)]="model.opis" name="opis"></textarea>
-    </div>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Opis</mat-label>
+        <textarea matInput required class="form-control" id="opis" [(ngModel)]="model.opis" name="opis"></textarea>
+      </mat-form-field>
+    </p>
 
-    <div class="form-group">
-      <label for="trajanje">Trajanje (min)</label>
-      <input type="number" class="form-control" id="trajanje" [(ngModel)]="model.trajanje" name="trajanje">
-    </div>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Trajanje (min)</mat-label>
+        <input matInput required type="number" class="form-control" id="trajanje" [(ngModel)]="model.trajanje" name="trajanje">
+      </mat-form-field>
+    </p>
 
-    <div class="form-group">
-      <label for="status">Status</label>
-      <select class="form-control" id="status" required [(ngModel)]="model.status" name="status">
-        <option *ngFor="let pow of statuses" [value]="pow">{{pow}}</option>
-      </select>
-    </div>
+    <p>
+      <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select matInput class="form-control" id="status" required [(ngModel)]="model.status" name="status">
+          <mat-option *ngFor="let pow of statuses" [value]="pow">{{pow}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </p>
 
     <button type="submit" class="btn btn-success" [disabled]="!formRef.form.valid">Sačuvaj</button>
   </form>
