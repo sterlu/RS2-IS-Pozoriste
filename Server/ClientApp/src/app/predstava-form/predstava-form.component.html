@@ -1,4 +1,4 @@
-<div>
+<mat-card class="predstava-form">
   <form (ngSubmit)="onSubmit()" #formRef="ngForm">
     <p>
       <mat-form-field appearance="fill">
@@ -31,6 +31,38 @@
       </mat-form-field>
     </p>
 
-    <button type="submit" class="btn btn-success" [disabled]="!formRef.form.valid">Sačuvaj</button>
+    <hr>
+
+    <div>
+      <h3>
+        <b>Izvođenja </b>
+        <button mat-mini-fab type="button" color="primary" (click)="dodajIzvodjenje()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </h3>
+
+      <div *ngIf="model.izvodjenja.length === 0">Trenutno nema izvođenja</div>
+
+      <div *ngFor="let izvodjenje of model.izvodjenja; index as i">
+        <mat-form-field appearance="fill">
+          <mat-label>Datum</mat-label>
+          <input matInput [matDatepicker]="pickerdate" [value]="izvodjenje._datum" (dateInput)="izvodjenje.datum = ($event.value || '').toString()">
+          <mat-datepicker-toggle matSuffix [for]="pickerdate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerdate></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Vreme</mat-label>
+          <input matInput [ngxTimepicker]="pickertime" [format]="24" [value]="izvodjenje.vreme">
+        </mat-form-field>
+        <ngx-material-timepicker #pickertime [format]="24" (timeSet)="izvodjenje.vreme = $event"></ngx-material-timepicker>
+
+        <button mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <button mat-raised-button type="submit" color="primary" [disabled]="!formRef.form.valid">Sačuvaj</button>
   </form>
-</div>
+</mat-card>
