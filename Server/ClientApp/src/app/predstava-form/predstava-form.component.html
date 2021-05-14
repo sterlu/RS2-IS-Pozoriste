@@ -57,6 +57,13 @@
         </mat-form-field>
         <ngx-material-timepicker #pickertime [format]="24" (timeSet)="izvodjenje.vreme = $event"></ngx-material-timepicker>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Sala</mat-label>
+          <mat-select matInput class="form-control" required [(ngModel)]="izvodjenje.sala.brojSale" name="sala">
+            <mat-option *ngFor="let sala of sale" [value]="sala.brojSale">{{sala.naziv}} ({{sala.brojMesta}} mesta)</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <button mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
       </div>
     </div>

@@ -1,7 +1,10 @@
+import {Sala} from './sala';
+
 export class Izvodjenje {
   constructor(
     public _datum: Date,
     public predstavaId: string = '',
+    public sala: Sala = null,
   ) {
   }
 
