@@ -6,7 +6,7 @@
   </mat-card-content>
   <mat-card-actions>
     <button mat-button>Rezerviši</button>
-    <button mat-button>Obavesti me</button>
+    <button mat-button (click)="subscribeToNotifications()">Obavesti me</button>
     <button mat-button [routerLink]="['/predstava/izmeni', predstava.Id]">Izmeni</button>
   </mat-card-actions>
 </mat-card>

@@ -20,6 +20,8 @@ import { PredstaveComponent } from './predstave/predstave.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 import { PredstavaFormComponent } from './predstava-form/predstava-form.component';
 import { PredstavaComponent } from './predstave/predstava/predstava.component';
+import {ServiceWorkerModule} from "@angular/service-worker";
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,13 @@ import { PredstavaComponent } from './predstave/predstava/predstava.component';
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatIconModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      // enabled: environment.production,
+      enabled: true,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -16,6 +16,7 @@ namespace Server.Models
         public string SalaCollectionName { get; set; }
         public string ZahtevZaPovracajNovcaCollectionName { get; set; }
         public string ZaposlenCollectionName { get; set; }
+        public string PushPretplateCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
     }
@@ -29,6 +30,7 @@ namespace Server.Models
         string SalaCollectionName { get; set; }
         string ZahtevZaPovracajNovcaCollectionName { get; set; }
         string ZaposlenCollectionName { get; set; }
+        string PushPretplateCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
@@ -10,10 +11,12 @@ namespace Server.Controllers
     public class PredstavaController : ControllerBase
     {
         private PredstavaService _predstavaService;
+        private PushPretplataService _pushPretplataService;
 
-        public PredstavaController(PredstavaService predstavaService)
+        public PredstavaController(PredstavaService predstavaService, PushPretplataService pushPretplataService)
         {
             _predstavaService = predstavaService;
+            _pushPretplataService = pushPretplataService;
         }
 
         [HttpGet]
@@ -53,6 +56,13 @@ namespace Server.Controllers
             }
 
             _predstavaService.Update(id, newValForPredstava);
+
+            Console.WriteLine(predstava.Status);
+            Console.WriteLine(newValForPredstava.Status);
+            if (predstava.Status != "aktivna" && newValForPredstava.Status == "aktivna")
+            {
+                _pushPretplataService.Obavesti(newValForPredstava.Id);
+            }
 
             return NoContent();
         }

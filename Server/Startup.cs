@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using WebPush;
 
 namespace Server
 {
@@ -44,6 +45,7 @@ namespace Server
             services.AddSingleton<SalaService>();
             services.AddSingleton<ZahtevZaPovracajNovcaService>();
             services.AddSingleton<ZaposlenService>();
+            services.AddSingleton<PushPretplataService>();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
@@ -51,6 +53,12 @@ namespace Server
             services.AddCors();
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+            
+            var vapidDetails = new VapidDetails(
+                Configuration.GetValue<string>("VapidDetails:Subject"),
+                Configuration.GetValue<string>("VapidDetails:PublicKey"),
+                Configuration.GetValue<string>("VapidDetails:PrivateKey"));
+            services.AddTransient(c => vapidDetails);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +87,9 @@ namespace Server
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseAngularCliServer(npmScript: "start");
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:5002"); // prod
+                    //spa.UseAngularCliServer(npmScript: "start"); // start ng build from backend
                 }
             });
         }
