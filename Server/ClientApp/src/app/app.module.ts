@@ -22,6 +22,7 @@ import { PredstavaFormComponent } from './predstava-form/predstava-form.componen
 import { PredstavaComponent } from './predstave/predstava/predstava.component';
 import {ServiceWorkerModule} from "@angular/service-worker";
 import { environment } from '../environments/environment';
+import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { environment } from '../environments/environment';
     PredstaveComponent,
     NavSidebarComponent,
     PredstavaFormComponent,
-    PredstavaComponent
+    PredstavaComponent,
+    KupovinaKarteComponent
   ],
   imports: [
     BrowserModule,

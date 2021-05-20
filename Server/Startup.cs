@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Stripe;
 using WebPush;
 
 namespace Server
@@ -92,6 +93,8 @@ namespace Server
                     //spa.UseAngularCliServer(npmScript: "start"); // start ng build from backend
                 }
             });
+
+            StripeConfiguration.ApiKey = Configuration.GetValue<string>("StripeSecretKey");
         }
     }
 }
