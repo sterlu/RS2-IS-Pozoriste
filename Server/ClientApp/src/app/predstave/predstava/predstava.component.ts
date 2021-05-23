@@ -8,7 +8,7 @@ import {HttpClient} from "@angular/common/http";
   templateUrl: './predstava.component.html',
   styleUrls: ['./predstava.component.scss']
 })
-export class PredstavaComponent implements OnInit {
+export class PredstavaComponent {
   @Input() predstava: Predstava;
 
   constructor(private swPush: SwPush, private http: HttpClient) { }
@@ -30,8 +30,5 @@ export class PredstavaComponent implements OnInit {
           alert('Bićete obavešteni kada predstava bude spremna za izvođenje');
         }, error => console.error(error));
       }).catch(console.error);
-  }
-
-  ngOnInit(): void {
   }
 }
