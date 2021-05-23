@@ -1,7 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Predstava} from '../../../models/predstava';
-import {SwPush} from '@angular/service-worker';
-import {HttpClient} from "@angular/common/http";
+import { Component, Input, OnInit } from '@angular/core';
+import { Predstava } from '../../../models/predstava';
+import { SwPush } from '@angular/service-worker';
+import { HttpClient } from "@angular/common/http";
 
 @Component({
   selector: 'app-predstava',

@@ -3,10 +3,14 @@ nav {
     margin-left: 10px;
     color: white;
     text-decoration: none;
+    cursor: pointer;
   }
 
   &.link-active a {
     text-decoration: underline;
   }
 
+  .mat-toolbar {
+    justify-content: space-between;
+  }
 }

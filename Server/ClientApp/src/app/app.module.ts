@@ -20,9 +20,10 @@ import { PredstaveComponent } from './predstave/predstave.component';
 import { NavSidebarComponent } from './nav-sidebar/nav-sidebar.component';
 import { PredstavaFormComponent } from './predstava-form/predstava-form.component';
 import { PredstavaComponent } from './predstave/predstava/predstava.component';
-import {ServiceWorkerModule} from "@angular/service-worker";
+import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from '../environments/environment';
 import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.component';
+import { IsAdminDirective } from '../helpers/is-admin.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.componen
     NavSidebarComponent,
     PredstavaFormComponent,
     PredstavaComponent,
-    KupovinaKarteComponent
+    KupovinaKarteComponent,
+    IsAdminDirective
   ],
   imports: [
     BrowserModule,
