@@ -4,30 +4,30 @@ using Newtonsoft.Json;
 
 namespace Server.Models
 {
-    public class Klijent
+    public class Korisnik
     {
         [BsonId] 
         [BsonRepresentation(BsonType.ObjectId)] 
-        public string Id { get; set; }
-
-        [BsonElement("imePrezime")]
-        [JsonProperty("imePrezime")]
-        public string ImePrezime { get; set; }
+        public string Id { get; set; } 
 
         [BsonElement("username")]
         [JsonProperty("username")]
         public string Username { get; set; }
 
-        [BsonElement("password")]
-        [JsonProperty("password")]
-        public string Password { get; set; }
+        [BsonElement("passwordHash")]
+        [JsonProperty("passwordHash")]
+        public byte[] PasswordHash { get; set; }
+
+        [BsonElement("passwordSalt")]
+        [JsonProperty("passwordSalt")]
+        public byte[] PasswordSalt { get; set; }
 
         [BsonElement("email")]
         [JsonProperty("email")]
         public string Email { get; set; }
 
-        
-        
-         
+        [BsonElement("tip")]
+        [JsonProperty("tip")]
+        public string Tip { get; set; }
     }
 }

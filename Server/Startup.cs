@@ -16,6 +16,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using WebPush;
+using Server.Interfaces;
 
 namespace Server
 {
@@ -39,18 +40,20 @@ namespace Server
                 sp.GetRequiredService<IOptions<MyDatabaseSettings>>().Value);
 
             services.AddSingleton<KartaService>();
-            services.AddSingleton<KlijentService>();
+            services.AddSingleton<KorisnikService>();
             services.AddSingleton<PredstavaService>();
             services.AddSingleton<RezervacijaService>();
             services.AddSingleton<SalaService>();
             services.AddSingleton<ZahtevZaPovracajNovcaService>();
-            services.AddSingleton<ZaposlenService>();
+            services.AddSingleton<IzvodjenjePredstaveService>();
             services.AddSingleton<PushPretplataService>();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
 
             services.AddCors();
+
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
             
