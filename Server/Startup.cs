@@ -47,6 +47,7 @@ namespace Server
             services.AddSingleton<ZahtevZaPovracajNovcaService>();
             services.AddSingleton<ZaposlenService>();
             services.AddSingleton<PushPretplataService>();
+            services.AddSingleton<PlacanjeService>();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());

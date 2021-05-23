@@ -10,29 +10,36 @@ namespace Server.Models
 {
     public class Karta
     {
+        public Karta(int cena, string status, string idPredstave, string idRezervacije, string username)
+        {
+            Cena = cena;
+            Status = status;
+            IdPredstave = idPredstave;
+            IdRezervacije = idRezervacije;
+            Username = username;
+        }
+
         [BsonId] // Znaci da je primarni kljuc
         [BsonRepresentation(BsonType.ObjectId)] //PrimarniKljuc je tipa ObjectId, pa da bi smo ga gledali kao string u aplikaciji
         public string Id { get; set; }
 
-        [BsonElement("kod")]
-        [JsonProperty("kod")]
-        public string Kod { get; set; }
-
         [BsonElement("cena")]
         [JsonProperty("cena")]
         public int Cena { get; set; }
+        
+        [BsonElement("status")]
+        [JsonProperty("status")]
+        public string Status { get; set; }
 
-        [BsonElement("tip")]
-        [JsonProperty("tip")]
-        public string Tip { get; set; }
+        [BsonElement("idPredstave")]
+        [JsonProperty("idPredstave")]
+        public string IdPredstave { get; set; }
+        
+        // TODO dodaj ID izvođenja
 
-        [BsonElement("sifraPredstave")]
-        [JsonProperty("sifraPredstave")]
-        public string SifraPredstave { get; set; } //predstava
-
-        [BsonElement("brojRezervacije")]
-        [JsonProperty("brojRezervacije")]
-        public int BrojRezervacije { get; set; } //rezervacija
+        [BsonElement("idRezervacije")]
+        [JsonProperty("idRezervacije")]
+        public string IdRezervacije { get; set; } //rezervacija
 
         // [BsonElement("id_korisnika")] // za kada se ime kolone(property) u bazi ne poklapa sa imenom promenljive
         // [JsonProperty("id_korisnika")] // ako se koristi NuGet biblioteka Microsoft.AspNetCore.Mvc.NewtonsoftJson -> using Newtonsoft.Json;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Server.DTO;
+using Server.Services;
 using Stripe;
 using Stripe.Checkout;
 
@@ -17,41 +19,19 @@ namespace server.Controllers
     [ApiController]
     public class PlacanjeController : Controller
     {
+        private PlacanjeService placanjeService;
+
+        public PlacanjeController(PlacanjeService placanjeService)
+        {
+            this.placanjeService = placanjeService;
+        }
+
         const string Secret = "whsec_fu9cXIXq8nd5g0N9Vb9UBHTUARlSiBrn";
 
         [HttpPost("create")]
-        public ActionResult Create()
+        public ActionResult Create(KupovinaKarteDto[] kupovine)
         {
-            var domain = "https://localhost:5001/predstava/1";
-            var options = new SessionCreateOptions
-            {
-                // CustomerEmail = "customer@example.com", // TODO
-                PaymentMethodTypes = new List<string>
-                {
-                  "card",
-                },
-                LineItems = new List<SessionLineItemOptions>
-                {
-                  new SessionLineItemOptions
-                  {
-                      PriceData = new SessionLineItemPriceDataOptions
-                    {
-                      UnitAmount = 50000,
-                      Currency = "RSD",
-                      ProductData = new SessionLineItemPriceDataProductDataOptions
-                      {
-                        Name = "Karta TODO",
-                      },
-                    },
-                    Quantity = 1,
-                  },
-                },
-                Mode = "payment",
-                SuccessUrl = domain + "?success=true",
-                CancelUrl = domain + "?canceled=true",
-            };
-            var service = new SessionService();
-            Session session = service.Create(options);
+            Session session = placanjeService.CreateSession(kupovine, HttpContext.Request.Host.ToString());
             return Json(new { id = session.Id });
         }
         
@@ -73,7 +53,7 @@ namespace server.Controllers
                 if (stripeEvent.Type == Events.CheckoutSessionCompleted)
                 {
                     var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
-                    this.FulfillOrder(session);
+                    placanjeService.PotvrdiPlacanje(session.Id);
                 }
 
                 return Ok();
@@ -82,10 +62,6 @@ namespace server.Controllers
             {
                 return BadRequest();
             }
-        }
-
-        private void FulfillOrder(Stripe.Checkout.Session session) {
-            // TODO
         }
     }
 }
