@@ -1,6 +1,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
+using System.Globalization;
 
 namespace Server.Models
 {
@@ -22,6 +23,8 @@ namespace Server.Models
         [JsonProperty("kod")]
         public string Kod { get; set; }
         
-        //public date Datum { get; set;}
+        [BsonElement("datum")]
+        [JsonProperty("datum")]
+        public System.DateTime Datum { get; set;}
     }
 }
