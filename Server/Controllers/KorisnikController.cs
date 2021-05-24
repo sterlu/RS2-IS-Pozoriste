@@ -1,10 +1,14 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
-using System.IO;
+using System.Linq;
+using Server.DTO;
+using Server.Helpers;
+using Server.Interfaces;
 
 namespace Server.Controllers
 {
@@ -13,17 +17,25 @@ namespace Server.Controllers
     public class KorisnikController : ControllerBase
     {
         private KorisnikService _korisnikService;
+        private ITokenService _tokenService;
 
-        public KorisnikController(KorisnikService korisnikService)
+        public KorisnikController(KorisnikService korisnikService, ITokenService tokenService)
         {
             _korisnikService = korisnikService;
+            _tokenService = tokenService;
         }
 
         [HttpGet]
-        public ActionResult<List<Korisnik>> Get() =>
-            _korisnikService.Get();
+        [AdminOnly]
+        public ActionResult<List<Korisnik>> Get()
+        {
+            // Console.Write(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value);
+            // Console.Write(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "tip").Value);
+            return _korisnikService.Get();
+        }
 
         [HttpGet("{id:length(24)}", Name = "GetKorisnik")]
+        [AdminOnly]
         public ActionResult<Korisnik> Get(string id)
         {
             var korisnik = _korisnikService.Get(id);
@@ -46,7 +58,7 @@ namespace Server.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult<Korisnik> register(Register register)
+        public ActionResult<string> Register(RegisterDto register)
         {
             using var hmac = new HMACSHA512();
 
@@ -54,18 +66,19 @@ namespace Server.Controllers
                 Username = register.Username, 
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
                 PasswordSalt = hmac.Key, 
-                Email = register.Password, 
+                Email = register.Email, 
                 Tip = register.Tip
             };
 
             _korisnikService.Create(korisnik);
 
-            return korisnik;
+            var token = _tokenService.CreateToken(korisnik);
 
+            return token;
         }
 
         [HttpPost("login")]
-        public ActionResult<Korisnik> login(Login login)
+        public ActionResult<string> Login(LoginDto login)
         {
             var korisnik = _korisnikService.GetByUsername(login.Username);
             if(korisnik == null)
@@ -78,9 +91,11 @@ namespace Server.Controllers
             {
                 if(computeHash[i] != korisnik.PasswordHash[i])
                     return Unauthorized("Wrong password");
-            }    
+            }
 
-            return korisnik;
+            var token = _tokenService.CreateToken(korisnik);
+
+            return token;
         }
 
         [HttpPut("{id:length(24)}")]

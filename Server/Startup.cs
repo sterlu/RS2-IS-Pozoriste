@@ -13,11 +13,13 @@ using Server.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Stripe;
 using WebPush;
 using Server.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Server
 {
@@ -64,6 +66,17 @@ namespace Server
                 Configuration.GetValue<string>("VapidDetails:PublicKey"),
                 Configuration.GetValue<string>("VapidDetails:PrivateKey"));
             services.AddTransient(c => vapidDetails);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"])),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,6 +95,7 @@ namespace Server
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
@@ -98,7 +112,7 @@ namespace Server
                 }
             });
 
-            StripeConfiguration.ApiKey = Configuration.GetValue<string>("StripeSecretKey");
+            Stripe.StripeConfiguration.ApiKey = Configuration.GetValue<string>("StripeSecretKey");
         }
     }
 }

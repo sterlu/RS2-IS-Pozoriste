@@ -1,8 +1,7 @@
-namespace Server.Models
+namespace Server.DTO
 {
-    public class Register
+    public class RegisterDto
     {
-        public string Id { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
