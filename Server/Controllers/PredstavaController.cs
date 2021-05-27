@@ -12,11 +12,13 @@ namespace Server.Controllers
     {
         private PredstavaService _predstavaService;
         private PushPretplataService _pushPretplataService;
+        private IzvodjenjePredstaveService _izvodjenjePrestaveService;
 
-        public PredstavaController(PredstavaService predstavaService, PushPretplataService pushPretplataService)
+        public PredstavaController(PredstavaService predstavaService, PushPretplataService pushPretplataService, IzvodjenjePredstaveService izvodjenjePredstaveService)
         {
             _predstavaService = predstavaService;
             _pushPretplataService = pushPretplataService;
+            _izvodjenjePrestaveService = izvodjenjePredstaveService;
         }
 
         [HttpGet]
@@ -34,6 +36,13 @@ namespace Server.Controllers
             }
 
             return predstava;
+        }
+
+        [HttpGet("izvodjenja/{sifraPredstave}")]
+        public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string sifraPredstave)
+        {
+            var izvodjenja = _izvodjenjePrestaveService.GetIzvodjenjaBySifraPredstave(sifraPredstave);
+            return izvodjenja;
         }
 
         [HttpPost]

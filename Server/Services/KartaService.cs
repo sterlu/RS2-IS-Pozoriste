@@ -28,9 +28,14 @@ namespace Server.Services
         public Karta Get(string id) =>
             _karte.Find<Karta>(karta => karta.Id == id)
                   .FirstOrDefault();
+
         public List<Karta> GetAllForReservation(string idRezervacije) =>
             _karte.Find<Karta>(karta => karta.IdRezervacije == idRezervacije)
                   .ToList();
+
+        public Karta GetByRezervacijaId(string idRezervacije) =>
+            _karte.Find<Karta>(karta => karta.IdRezervacije == idRezervacije)
+                  .FirstOrDefault();
 
         public Karta Create(Karta karta)
         {

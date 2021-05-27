@@ -35,7 +35,9 @@ namespace Server.Models
         [JsonProperty("idPredstave")]
         public string IdPredstave { get; set; }
         
-        // TODO dodaj ID izvođenja
+        [BsonElement("idIzvodjenja")]
+        [JsonProperty("idIzvodjenja")]
+        public string IdIzvodjenja { get; set; }
 
         [BsonElement("idRezervacije")]
         [JsonProperty("idRezervacije")]

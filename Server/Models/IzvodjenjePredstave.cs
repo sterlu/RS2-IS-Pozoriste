@@ -14,6 +14,14 @@ namespace Server.Models
         [JsonProperty("sifraPredstave")]
         public string SifraPredstave { get; set; }
 
+        [BsonElement("idIzvodjenja")]
+        [JsonProperty("idIzvodjenja")]
+        public string IdIzvodjenja { get; set; }
+
+        [BsonElement("nazivPredstave")]
+        [JsonProperty("nazivPredstave")]
+        public string NazivPredstave { get; set; }
+
         [BsonElement("brojSale")]
         [JsonProperty("brojSale")]
         public int BrojSale { get; set; }

@@ -9,6 +9,8 @@ using System.Linq;
 using Server.DTO;
 using Server.Helpers;
 using Server.Interfaces;
+using System.Net;
+using System.Net.Mail;
 
 namespace Server.Controllers
 {
@@ -127,6 +129,31 @@ namespace Server.Controllers
 
             return NoContent();
         } 
+
+        public void PosaljiObavestenje(string obavestenje)
+        {
+            var mailingLista = _korisnikService.MailingList();
+            
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("pozoriste@gmail.com", "pozoriste123"),
+                EnableSsl = true
+            };
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("email"),
+                Subject = "subject",
+                Body = obavestenje,
+                IsBodyHtml = false
+            };
+            foreach(Korisnik korisnik in mailingLista)
+            {
+                mailMessage.To.Add("recipient");    
+            }
+            smtpClient.Send(mailMessage);
+
+        }
 
     }
 }

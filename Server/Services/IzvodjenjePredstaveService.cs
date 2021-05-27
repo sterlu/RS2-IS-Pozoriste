@@ -1,6 +1,7 @@
 using Server.Models;
 using System.Collections.Generic;
 using MongoDB.Driver;
+using System;
 
 namespace Server.Services
 {
@@ -22,6 +23,14 @@ namespace Server.Services
             _izvodjenja.Find(izvodjenjePredstave => true)
                   .ToList();
 
+        public List<IzvodjenjePredstave> GetIzvodjenjaBySifraPredstave(string sifraPredstave) =>
+            _izvodjenja.Find(izvodjenje => izvodjenje.SifraPredstave == sifraPredstave).ToList();
+
+        public List<IzvodjenjePredstave> GetByDate(DateTime datum) =>
+            _izvodjenja.Find(izvodjenje => izvodjenje.Datum == datum).ToList(); 
+       
+            
+
         public IzvodjenjePredstave Get(string id) =>
             _izvodjenja.Find<IzvodjenjePredstave>(izvodjenje => izvodjenje.Id == id)
                   .FirstOrDefault();
@@ -40,5 +49,6 @@ namespace Server.Services
 
         public void Remove(string id) =>
             _izvodjenja.DeleteOne(izvodjenje => izvodjenje.Id == id);
+
     }
 }

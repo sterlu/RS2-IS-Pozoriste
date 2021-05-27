@@ -31,6 +31,10 @@ namespace Server.Services
             _korisnici.Find<Korisnik>(korisnik => korisnik.Username == username)
                   .FirstOrDefault();
 
+        public List<Korisnik> MailingList() =>
+            _korisnici.Find<Korisnik>(korisnik => korisnik.EmailObavestenja == "da")
+                  .ToList();
+
         public Korisnik Create(Korisnik korisnik)
         {
             _korisnici.InsertOne(korisnik);

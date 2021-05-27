@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
 using Server.Models;
 using Stripe.Checkout;
+using System.Net.Mail;
+using System.Net;
 
 namespace Server.Services
 {
@@ -10,11 +12,13 @@ namespace Server.Services
     {
         private PredstavaService predstavaService;
         private KartaService kartaService;
+        private KorisnikService _korisnikService;
 
-        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService)
+        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService, KorisnikService korisnikService)
         {
             this.predstavaService = predstavaService;
             this.kartaService = kartaService;
+            _korisnikService = korisnikService;
         }
 
         public Session CreateSession(KupovinaKarteDto[] kupovine, string domain = "localhost:5001")
@@ -78,6 +82,31 @@ namespace Server.Services
                 karta.Status = "Potvrdjena";
                 kartaService.Update(karta.Id, karta);
             }
+
+            string kartaUsername = kartaService.GetByRezervacijaId(idRezervacije).Username;
+            string email = _korisnikService.GetByUsername(kartaUsername).Email;
+
+            var smtpClient = new SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                Credentials = new NetworkCredential("pozoriste@gmail.com", "pozoriste123"),
+                EnableSsl = true
+            };
+                
+            //smtpClient.Send("email", "recipient", "subject", "body");
+
+            // TODO: ispisati lepo sadrzaj maila
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress("pozoriste@gmail.com"),
+                Subject = "Vasa karta",
+                Body = "<h1>Karta</h1>",
+                IsBodyHtml = true
+            };
+            mailMessage.To.Add(email);
+
+            smtpClient.Send(mailMessage);
+
         }
     }
 }

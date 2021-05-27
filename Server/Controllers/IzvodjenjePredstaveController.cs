@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
+using System;
 
 namespace Server.Controllers
 {
@@ -31,6 +32,12 @@ namespace Server.Controllers
             }
 
             return izvodjenje;
+        }
+        [HttpGet("dnevniRepertoar/{datum}")]
+        public ActionResult<List<IzvodjenjePredstave>> DnevniRepertoar(DateTime datum)
+        {
+            var repertoar = _izvodjenjeService.GetByDate(datum);
+            return repertoar;
         }
 
         [HttpPost]
