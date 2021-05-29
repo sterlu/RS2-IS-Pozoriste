@@ -7,7 +7,8 @@ using System;
 namespace Server.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
+
     public class IzvodjenjePredstaveController : ControllerBase
     {
         private IzvodjenjePredstaveService _izvodjenjeService;
@@ -34,10 +35,17 @@ namespace Server.Controllers
             return izvodjenje;
         }
         [HttpGet("dnevniRepertoar/{datum}")]
-        public ActionResult<List<IzvodjenjePredstave>> DnevniRepertoar(DateTime datum)
+        public ActionResult<List<IzvodjenjePredstave>> DnevniRepertoar(string datum)
         {
             var repertoar = _izvodjenjeService.GetByDate(datum);
             return repertoar;
+        }
+
+        [HttpGet("{sifraPredstave}")]
+        public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string sifraPredstave)
+        {
+            var izvodjenja = _izvodjenjeService.GetIzvodjenjaBySifraPredstave(sifraPredstave);
+            return izvodjenja;
         }
 
         [HttpPost]

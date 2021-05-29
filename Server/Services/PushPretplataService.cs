@@ -47,6 +47,9 @@ namespace Server.Services
         
         public void Obavesti(string idPredstave)
         {
+            // TODO: ubaciti ovde obavestavanje mailom za nove predstave iz korisnik kontrolera,
+            //       ili prebaciti sve u mailingList u korisnik servisu pozvati ovde
+            
             var predstava = _predstavaService.Get(idPredstave);
             var client = new WebPushClient();
             var sadrzaj =

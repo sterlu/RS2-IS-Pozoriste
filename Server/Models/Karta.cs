@@ -23,7 +23,7 @@ namespace Server.Models
         [BsonRepresentation(BsonType.ObjectId)] //PrimarniKljuc je tipa ObjectId, pa da bi smo ga gledali kao string u aplikaciji
         public string Id { get; set; }
 
-        [BsonElement("cena")]
+        [BsonElement("cena")] 
         [JsonProperty("cena")]
         public int Cena { get; set; }
         

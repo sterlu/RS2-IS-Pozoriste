@@ -24,6 +24,6 @@ namespace Server.Models
 
         [BsonElement("vreme")]
         [JsonProperty("vreme")]
-        public System.DateTime Vreme { get; set; }
+        public string Vreme { get; set; }
     }
 }

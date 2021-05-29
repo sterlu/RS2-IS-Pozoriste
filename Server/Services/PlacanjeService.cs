@@ -14,11 +14,14 @@ namespace Server.Services
         private KartaService kartaService;
         private KorisnikService _korisnikService;
 
-        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService, KorisnikService korisnikService)
+        private IzvodjenjePredstaveService _izvodjenjePredstaveService;
+
+        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService, KorisnikService korisnikService, IzvodjenjePredstaveService izvodjenjePredstaveService)
         {
             this.predstavaService = predstavaService;
             this.kartaService = kartaService;
             _korisnikService = korisnikService;
+            _izvodjenjePredstaveService = izvodjenjePredstaveService;
         }
 
         public Session CreateSession(KupovinaKarteDto[] kupovine, string domain = "localhost:5001")
@@ -89,19 +92,26 @@ namespace Server.Services
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("pozoriste@gmail.com", "pozoriste123"),
+                Credentials = new NetworkCredential("matfpozoriste@gmail.com", "pozoriste123"),
                 EnableSsl = true
             };
-                
-            //smtpClient.Send("email", "recipient", "subject", "body");
 
-            // TODO: ispisati lepo sadrzaj maila
+            string body = "";
+            foreach(Karta karta in karte)
+            {
+                var izvodjenje = _izvodjenjePredstaveService.GetIzvodjenjaByIdIzvodjenja(karta.IdIzvodjenja);
+                body += "Naziv predstave: " + izvodjenje.NazivPredstave +"\n"
+                        + "datum: " + izvodjenje.Datum +"\n"
+                        + "vreme: " + izvodjenje.Vreme + "\n"
+                        + "sala: " + izvodjenje.BrojSale + "\n"
+                        + "cena: " + karta.Cena.ToString() + "\n";
+            }
             var mailMessage = new MailMessage
             {
-                From = new MailAddress("pozoriste@gmail.com"),
+                From = new MailAddress("matfpozoriste@gmail.com"),
                 Subject = "Vasa karta",
-                Body = "<h1>Karta</h1>",
-                IsBodyHtml = true
+                Body = body,
+                IsBodyHtml = false
             };
             mailMessage.To.Add(email);
 

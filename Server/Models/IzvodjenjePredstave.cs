@@ -10,13 +10,14 @@ namespace Server.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
 
+        [BsonElement("idIzvodjenja")]
+        [JsonProperty("idIzvodjenja")]
+        public string IdIzvodjenja { get; set; }
+
         [BsonElement("sifraPredstave")]
         [JsonProperty("sifraPredstave")]
         public string SifraPredstave { get; set; }
 
-        [BsonElement("idIzvodjenja")]
-        [JsonProperty("idIzvodjenja")]
-        public string IdIzvodjenja { get; set; }
 
         [BsonElement("nazivPredstave")]
         [JsonProperty("nazivPredstave")]
@@ -28,10 +29,10 @@ namespace Server.Models
 
         [BsonElement("datum")]
         [JsonProperty("datum")]
-        public System.DateTime Datum { get; set; }
+        public string Datum { get; set; }
 
         [BsonElement("vreme")]
         [JsonProperty("vreme")]
-        public System.DateTime Vreme { get; set; }
+        public string Vreme { get; set; }
     }
 }

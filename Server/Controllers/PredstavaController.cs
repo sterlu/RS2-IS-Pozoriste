@@ -38,12 +38,6 @@ namespace Server.Controllers
             return predstava;
         }
 
-        [HttpGet("izvodjenja/{sifraPredstave}")]
-        public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string sifraPredstave)
-        {
-            var izvodjenja = _izvodjenjePrestaveService.GetIzvodjenjaBySifraPredstave(sifraPredstave);
-            return izvodjenja;
-        }
 
         [HttpPost]
         public ActionResult<Predstava> Create(Predstava predstava)

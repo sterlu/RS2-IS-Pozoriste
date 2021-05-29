@@ -54,7 +54,6 @@ namespace Server.Controllers
         public ActionResult<Korisnik> Create(Korisnik korisnik)
         {
             _korisnikService.Create(korisnik);
-
             
             return CreatedAtRoute("GetKorisnik", new { id = korisnik.Id.ToString() }, korisnik);
         }
@@ -130,6 +129,7 @@ namespace Server.Controllers
             return NoContent();
         } 
 
+        [HttpGet("mailingLista")]
         public void PosaljiObavestenje(string obavestenje)
         {
             var mailingLista = _korisnikService.MailingList();
@@ -137,19 +137,19 @@ namespace Server.Controllers
             var smtpClient = new SmtpClient("smtp.gmail.com")
             {
                 Port = 587,
-                Credentials = new NetworkCredential("pozoriste@gmail.com", "pozoriste123"),
+                Credentials = new NetworkCredential("matfpozoriste@gmail.com", "pozoriste123"),
                 EnableSsl = true
             };
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("email"),
-                Subject = "subject",
+                Subject = "Nova predstava",
                 Body = obavestenje,
                 IsBodyHtml = false
             };
             foreach(Korisnik korisnik in mailingLista)
             {
-                mailMessage.To.Add("recipient");    
+                mailMessage.To.Add(korisnik.Email);  
             }
             smtpClient.Send(mailMessage);
 
