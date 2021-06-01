@@ -5,6 +5,8 @@ import { PredstavaFormComponent } from './predstava-form/predstava-form.componen
 import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.component';
 import { AuthGuard } from "../helpers/auth.guard";
 import { AdminGuard } from "../helpers/admin.guard";
+import { LoginComponent } from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
 
 const routes: Routes = [
   { path: '', component: PredstaveComponent, pathMatch: 'full' },
@@ -13,7 +15,8 @@ const routes: Routes = [
   { path: 'predstava/izmeni/:id', component: PredstavaFormComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'predstava/:id', component: KupovinaKarteComponent, canActivate: [AuthGuard] },
 
-  // { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({

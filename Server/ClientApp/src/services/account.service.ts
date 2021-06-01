@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { Router } from "@angular/router";
+import jwtDecode from "jwt-decode";
 
 @Injectable({
   providedIn: 'root',
@@ -23,9 +24,12 @@ export class AccountService {
   }
 
   login(model: any): Observable<void> {
-    return this.http.post('/api/auth/login', model).pipe(
-      map((response: User) => {
-        const user = response;
+    return this.http.post('/api/korisnik/login', model, { responseType: 'text' }).pipe(
+      map((token: string) => {
+        const _user: any = jwtDecode(token);
+        const user = new User();
+        user.Tip = _user.tip;
+        user.Username = _user.username;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.setCurrentUser(user);
@@ -35,8 +39,12 @@ export class AccountService {
   }
 
   register(model: any): Observable<void> {
-    return this.http.post('/api/auth/register', model).pipe(
-      map((user: User) => {
+    return this.http.post('/api/korisnik/register', model, { responseType: 'text' }).pipe(
+      map((token: string) => {
+        const _user: any = jwtDecode(token);
+        const user = new User();
+        user.Tip = _user.tip;
+        user.Username = _user.username;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.setCurrentUser(user);

@@ -68,7 +68,7 @@ namespace Server.Controllers
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
                 PasswordSalt = hmac.Key, 
                 Email = register.Email, 
-                Tip = register.Tip
+                Tip = "korisnik"
             };
 
             _korisnikService.Create(korisnik);

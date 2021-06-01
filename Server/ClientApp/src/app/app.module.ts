@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,6 +24,8 @@ import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from '../environments/environment';
 import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.component';
 import { IsAdminDirective } from '../helpers/is-admin.directive';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -33,13 +35,16 @@ import { IsAdminDirective } from '../helpers/is-admin.directive';
     PredstavaFormComponent,
     PredstavaComponent,
     KupovinaKarteComponent,
-    IsAdminDirective
+    IsAdminDirective,
+    RegisterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatInputModule,

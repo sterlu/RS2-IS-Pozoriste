@@ -1,35 +1,27 @@
 <mat-card class="predstava-form">
   <form (ngSubmit)="onSubmit()" #formRef="ngForm">
-    <p>
-      <mat-form-field appearance="fill">
-        <mat-label>Ime</mat-label>
-        <input matInput class="form-control" id="nazivPredstave" required [(ngModel)]="model.nazivPredstave"
-               name="nazivPredstave">
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="fill">
+      <mat-label>Ime</mat-label>
+      <input matInput id="nazivPredstave" required [(ngModel)]="model.nazivPredstave"
+             name="nazivPredstave">
+    </mat-form-field>
 
-    <p>
-      <mat-form-field appearance="fill">
-        <mat-label>Opis</mat-label>
-        <textarea matInput required class="form-control" id="opis" [(ngModel)]="model.opis" name="opis"></textarea>
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="fill">
+      <mat-label>Opis</mat-label>
+      <textarea matInput required id="opis" [(ngModel)]="model.opis" name="opis"></textarea>
+    </mat-form-field>
 
-    <p>
-      <mat-form-field appearance="fill">
-        <mat-label>Trajanje (min)</mat-label>
-        <input matInput required type="number" class="form-control" id="trajanje" [(ngModel)]="model.trajanje" name="trajanje">
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="fill">
+      <mat-label>Trajanje (min)</mat-label>
+      <input matInput required type="number" id="trajanje" [(ngModel)]="model.trajanje" name="trajanje">
+    </mat-form-field>
 
-    <p>
-      <mat-form-field appearance="fill">
-        <mat-label>Status</mat-label>
-        <mat-select matInput class="form-control" id="status" required [(ngModel)]="model.status" name="status">
-          <mat-option *ngFor="let pow of statuses" [value]="pow">{{pow}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-    </p>
+    <mat-form-field appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select matInput class="form-control" id="status" required [(ngModel)]="model.status" name="status">
+        <mat-option *ngFor="let pow of statuses" [value]="pow">{{pow}}</mat-option>
+      </mat-select>
+    </mat-form-field>
 
     <hr>
 

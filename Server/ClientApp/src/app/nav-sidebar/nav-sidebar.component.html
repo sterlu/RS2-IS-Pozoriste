@@ -14,12 +14,12 @@
         <a class="nav-link text-dark" [routerLink]="['/predstave']">Predstave</a>
       </a>
       <a class="nav-item" [routerLinkActive]="['link-active']">
-        <a class="nav-link text-dark" [routerLink]="['/predstava/dodaj']">Nova predstava</a>
+        <a class="nav-link text-dark" [routerLink]="['/predstava/dodaj']" *appIsAdmin>Nova predstava</a>
       </a>
     </div>
 
     <div class="auth">
-      <a *ngIf="user" (click)="logout()">{{user.Ime}} ({{user.Username}})</a>
+      <a *ngIf="user" (click)="logout()">Prijavljeni kao {{user.Username}}</a>
       <a *ngIf="!user" [routerLink]="['/login']">Prijava</a>
     </div>
   </mat-toolbar>

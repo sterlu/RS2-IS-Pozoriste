@@ -1,7 +1,7 @@
 .predstava-form {
   max-width: 800px;
   margin: 20px auto;
-  p {
+  mat-form-field {
     display: flex;
     flex-direction: column;
   }

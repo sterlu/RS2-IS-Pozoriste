@@ -1,0 +1,29 @@
+<mat-card class="login-form">
+  <h2>Prijava</h2>
+  <p>Prijavite se kako biste omogućili kupovinu karata.</p>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Korisničko ime</mat-label>
+      <input matInput type="text" formControlName="username" id="username" />
+      <div *ngIf="submitted && f.username.errors" class="greska">
+        <div *ngIf="f.username.errors.required">Korisničko ime je obavezno</div>
+      </div>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Lozinka</mat-label>
+      <input matInput type="password" formControlName="password" id="password" />
+      <div *ngIf="submitted && f.password.errors" class="greska">
+        <div *ngIf="f.password.errors.required">Lozinka je obavezna</div>
+        <div *ngIf="f.password.errors.minlength">Lozinka mora imati bar 6 karaktera</div>
+      </div>
+    </mat-form-field>
+
+    <div>
+      <button mat-raised-button [disabled]="loading" color="primary">Prijava</button>
+      <a mat-button routerLink="/register" class="btn btn-link">Registracija</a>
+    </div>
+
+    <div class="greska" *ngIf="greska">{{greska}}</div>
+  </form>
+</mat-card>

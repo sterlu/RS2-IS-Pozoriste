@@ -1,0 +1,16 @@
+.login-form {
+  max-width: 800px;
+  margin: 20px auto;
+  mat-form-field {
+    display: flex;
+    flex-direction: column;
+  }
+  .greska {
+    color: red;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+  button {
+    margin: 0 10px 10px 0;
+  }
+}
