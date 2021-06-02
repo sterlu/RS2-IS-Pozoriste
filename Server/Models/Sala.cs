@@ -6,6 +6,13 @@ namespace Server.Models
 {
     public class Sala
     {
+        public Sala(int brojSale, int brojMesta, string naziv)
+        {
+            BrojSale = brojSale;
+            BrojMesta = brojMesta;
+            Naziv = naziv;
+        }
+
         [BsonId] 
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }

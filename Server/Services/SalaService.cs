@@ -25,6 +25,10 @@ namespace Server.Services
         public Sala Get(string id) =>
             _sale.Find<Sala>(sala => sala.Id == id)
                   .FirstOrDefault();
+        
+        public Sala GetByBrojSale(int broj) =>
+            _sale.Find<Sala>(sala => sala.BrojSale == broj)
+                  .FirstOrDefault();
 
         public Sala Create(Sala sala)
         {

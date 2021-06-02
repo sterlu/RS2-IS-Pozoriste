@@ -61,17 +61,7 @@ namespace Server.Controllers
         [HttpPost("register")]
         public ActionResult<string> Register(RegisterDto register)
         {
-            using var hmac = new HMACSHA512();
-
-            var korisnik = new Korisnik {
-                Username = register.Username, 
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(register.Password)),
-                PasswordSalt = hmac.Key, 
-                Email = register.Email, 
-                Tip = "korisnik"
-            };
-
-            _korisnikService.Create(korisnik);
+            var korisnik = _korisnikService.Register(register.Username, register.Password, register.Email);
 
             var token = _tokenService.CreateToken(korisnik);
 

@@ -1,6 +1,9 @@
 using Server.Models;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 using MongoDB.Driver;
+using Server.DTO;
 
 
 namespace Server.Services 
@@ -39,6 +42,21 @@ namespace Server.Services
         {
             _korisnici.InsertOne(korisnik);
             return korisnik;
+        }
+
+        public Korisnik Register(string username, string password, string email, string tip = "korisnik")
+        {
+            using var hmac = new HMACSHA512();
+
+            var korisnik = new Korisnik {
+                Username = username, 
+                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
+                PasswordSalt = hmac.Key, 
+                Email = email, 
+                Tip = tip
+            };
+
+            return Create(korisnik);
         }
 
         public void Update(string id, Korisnik newValForKorisnik) =>

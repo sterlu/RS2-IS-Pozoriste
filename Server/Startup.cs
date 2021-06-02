@@ -20,6 +20,7 @@ using WebPush;
 using Server.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Server.Models.Seed;
 
 namespace Server
 {
@@ -113,6 +114,9 @@ namespace Server
             });
 
             Stripe.StripeConfiguration.ApiKey = Configuration.GetValue<string>("StripeSecretKey");
+            
+            SalaSeed.Seed(app, Configuration);
+            KorisnikSeed.Seed(app, Configuration);
         }
     }
 }
