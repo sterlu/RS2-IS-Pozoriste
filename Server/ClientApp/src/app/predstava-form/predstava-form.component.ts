@@ -14,6 +14,7 @@ export class PredstavaFormComponent implements OnInit {
   statuses = ['u pripremi', 'aktivna', 'arhivirana'];
   sale: Sala[] = [];
   model = new Predstava('', '', this.statuses[0], 0);
+  inicijalniStatus = '';
   id = '';
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
@@ -29,6 +30,7 @@ export class PredstavaFormComponent implements OnInit {
           const { predstava, izvodjenja } = result;
           const _izvodjenja = izvodjenja.map(i => new Izvodjenje(new Date(i.datum + ' ' + i.vreme), i.idPredstave, this.sale.find(s => s.brojSale === i.brojSale), i.Id));
           this.model = new Predstava(predstava.nazivPredstave, predstava.opis, predstava.status, predstava.trajanje, _izvodjenja, this.id);
+          this.inicijalniStatus = predstava.status;
         }, error => console.error(error));
       } else {
         this.model = new Predstava('Nova predstava', '', this.statuses[0], 120);
@@ -49,9 +51,23 @@ export class PredstavaFormComponent implements OnInit {
     this.model.izvodjenja.splice(i, 1);
   }
 
+  valid(): boolean {
+    if (this.model.status === 'aktivna' && this.model.izvodjenja.length === 0) {
+      alert('Predstava može biti aktivna samo ako ima izvođenja.');
+      return false;
+    }
+    if (this.model.status === 'u pripremi' && this.model.izvodjenja.length > 0) {
+      alert('Predstava ne može biti u pripremi ako ima izvođenja.');
+      return false;
+    }
+    if (this.inicijalniStatus === 'u pripremi' && this.model.status === 'aktivna') {
+      if (!confirm('Ovime ćete obavestiti sve pretplaćene korisnike da je predstava aktivna. Da li to želite da uradite?')) return false;
+    }
+    return true;
+  }
+
   onSubmit(): void {
-    console.log(this.model);
-    console.log(this.model.toJSON());
+    if (!this.valid()) return;
     const payload = this.model.toJSON();
     (this.id
       ? this.http.put<object[]>(`/api/predstava/${this.id}`, payload)

@@ -14,11 +14,11 @@ export class PredstavaComponent {
   constructor(private swPush: SwPush, private http: HttpClient) { }
 
   subscribeToNotifications(): void {
+    if (!confirm('Da li želite da budete obavešteni kada predstava bude najavljena za izvođenje?')) return;
     this.swPush.requestSubscription({
       serverPublicKey: 'BMtMn89komUmRhkvdRxsf_w54bHPlwcqBNxg6HX4cWzpi9OPiOzAnP4jT8WiH8VmdikQGOM-F_rDJxpBaxpjSRs'
     })
       .then((r) => {
-        console.log(r.toJSON());
         const payload = {
           endpoint: r.endpoint,
           p256dh: r.toJSON().keys.p256dh,
