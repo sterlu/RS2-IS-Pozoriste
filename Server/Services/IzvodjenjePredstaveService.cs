@@ -23,16 +23,11 @@ namespace Server.Services
             _izvodjenja.Find(izvodjenjePredstave => true)
                   .ToList();
 
-        public List<IzvodjenjePredstave> GetIzvodjenjaBySifraPredstave(string sifraPredstave) =>
-            _izvodjenja.Find(izvodjenje => izvodjenje.SifraPredstave == sifraPredstave).ToList();
-
-         public IzvodjenjePredstave GetIzvodjenjaByIdIzvodjenja(string idIzvodjenja) =>
-            _izvodjenja.Find(izvodjenje => izvodjenje.IdIzvodjenja == idIzvodjenja).FirstOrDefault();
+        public List<IzvodjenjePredstave> GetIzvodjenjaByIdPredstave(string idPredstave) =>
+            _izvodjenja.Find(izvodjenje => izvodjenje.IdPredstave == idPredstave).ToList();
 
         public List<IzvodjenjePredstave> GetByDate(string datum) =>
-            _izvodjenja.Find(izvodjenje => izvodjenje.Datum == datum).ToList(); 
-       
-            
+            _izvodjenja.Find(izvodjenje => izvodjenje.Datum == datum).ToList();
 
         public IzvodjenjePredstave Get(string id) =>
             _izvodjenja.Find<IzvodjenjePredstave>(izvodjenje => izvodjenje.Id == id)

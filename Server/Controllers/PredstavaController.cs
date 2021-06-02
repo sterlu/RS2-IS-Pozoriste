@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Server.DTO;
 using Server.Models;
 using Server.Services;
 
@@ -26,45 +27,51 @@ namespace Server.Controllers
             _predstavaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetPredstava")]
-        public ActionResult<Predstava> Get(string id)
+        public ActionResult<PredstavaDto> Get(string id)
         {
             var predstava = _predstavaService.Get(id);
 
-            if (predstava == null)
-            {
-                return NotFound();
-            }
+            if (predstava == null) return NotFound();
+                
+            var izvodjenja = _izvodjenjePrestaveService.GetIzvodjenjaByIdPredstave(id);
 
-            return predstava;
+            return new PredstavaDto(predstava, izvodjenja);
         }
 
 
         [HttpPost]
-        public ActionResult<Predstava> Create(Predstava predstava)
+        public ActionResult<Predstava> Create(PredstavaDto payload)
         {
-            _predstavaService.Create(predstava);
+            var predstava = _predstavaService.Create(payload.predstava);
 
-            
+            foreach (var izvodjenje in payload.izvodjenja)
+            {
+                izvodjenje.IdPredstave = predstava.Id;
+                _izvodjenjePrestaveService.Create(izvodjenje);
+            }
+
             return CreatedAtRoute("GetPredstava", new { id = predstava.Id.ToString() }, predstava);
         }
 
         [HttpPut("{id:length(24)}")]
-        public IActionResult Update(string id, Predstava newValForPredstava)
+        public IActionResult Update(string id, PredstavaDto payload)
         {
             var predstava = _predstavaService.Get(id);
 
-            if (predstava == null)
+            if (predstava == null) return NotFound();
+
+            _predstavaService.Update(id, payload.predstava);
+            
+            foreach (var izvodjenje in payload.izvodjenja)
             {
-                return NotFound();
+                izvodjenje.IdPredstave = predstava.Id;
+                if (izvodjenje.Id != null) _izvodjenjePrestaveService.Update(izvodjenje.Id, izvodjenje);
+                else _izvodjenjePrestaveService.Create(izvodjenje);
             }
 
-            _predstavaService.Update(id, newValForPredstava);
-
-            Console.WriteLine(predstava.Status);
-            Console.WriteLine(newValForPredstava.Status);
-            if (predstava.Status != "aktivna" && newValForPredstava.Status == "aktivna")
+            if (predstava.Status == "u pripremi" && payload.predstava.Status == "aktivna")
             {
-                _pushPretplataService.Obavesti(newValForPredstava.Id);
+                _pushPretplataService.Obavesti(payload.predstava.Id);
             }
 
             return NoContent();

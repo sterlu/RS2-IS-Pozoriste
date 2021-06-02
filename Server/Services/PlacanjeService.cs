@@ -99,8 +99,9 @@ namespace Server.Services
             string body = "";
             foreach(Karta karta in karte)
             {
-                var izvodjenje = _izvodjenjePredstaveService.GetIzvodjenjaByIdIzvodjenja(karta.IdIzvodjenja);
-                body += "Naziv predstave: " + izvodjenje.NazivPredstave +"\n"
+                var izvodjenje = _izvodjenjePredstaveService.Get(karta.IdIzvodjenja);
+                var predstava = predstavaService.Get(izvodjenje.IdPredstave);
+                body += "Naziv predstave: " + predstava.NazivPredstave +"\n"
                         + "datum: " + izvodjenje.Datum +"\n"
                         + "vreme: " + izvodjenje.Vreme + "\n"
                         + "sala: " + izvodjenje.BrojSale + "\n"

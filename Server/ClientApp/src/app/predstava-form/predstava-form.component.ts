@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {Predstava} from '../../models/predstava';
-import {HttpClient} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Izvodjenje} from '../../models/izvodjenje';
-import {Sala} from '../../models/sala';
+import { Component, OnInit } from '@angular/core';
+import { Predstava } from '../../models/predstava';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Izvodjenje } from '../../models/izvodjenje';
+import { Sala } from '../../models/sala';
 
 @Component({
   selector: 'app-predstava-form',
@@ -20,16 +20,20 @@ export class PredstavaFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-    if (this.id) {
-      this.http.get<Predstava>(`/api/predstava/${this.id}`).subscribe(result => {
-        this.model = new Predstava(result.nazivPredstave, result.opis, result.status, result.trajanje, [], this.id);
-      }, error => console.error(error));
-    } else {
-      this.model = new Predstava('Nova predstava', '', this.statuses[0], 120);
-    }
     this.http.get<Sala[]>(`/api/sala/`).subscribe(result => {
       this.sale = result;
+
+      this.id = this.route.snapshot.paramMap.get('id');
+      if (this.id) {
+        this.http.get<any>(`/api/predstava/${this.id}`).subscribe(result => {
+          const { predstava, izvodjenja } = result;
+          const _izvodjenja = izvodjenja.map(i => new Izvodjenje(new Date(i.datum + ' ' + i.vreme), i.idPredstave, this.sale.find(s => s.brojSale === i.brojSale), i.Id));
+          this.model = new Predstava(predstava.nazivPredstave, predstava.opis, predstava.status, predstava.trajanje, _izvodjenja, this.id);
+        }, error => console.error(error));
+      } else {
+        this.model = new Predstava('Nova predstava', '', this.statuses[0], 120);
+      }
+
     }, error => console.error(error));
   }
 
@@ -47,13 +51,11 @@ export class PredstavaFormComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.model);
-    const payload = {
-      ...this.model,
-      sifraPredstave: 1,
-    };
+    console.log(this.model.toJSON());
+    const payload = this.model.toJSON();
     (this.id
-        ? this.http.put<object[]>(`/api/predstava/${this.id}`, payload)
-        : this.http.post<object[]>('/api/predstava', payload)
+      ? this.http.put<object[]>(`/api/predstava/${this.id}`, payload)
+      : this.http.post<object[]>('/api/predstava', payload)
     ).subscribe(result => {
       console.log(result);
       this.router.navigate(['/predstave']);

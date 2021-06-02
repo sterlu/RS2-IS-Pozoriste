@@ -42,9 +42,9 @@ namespace Server.Controllers
         }
 
         [HttpGet("{sifraPredstave}")]
-        public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string sifraPredstave)
+        public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string idPredstave)
         {
-            var izvodjenja = _izvodjenjeService.GetIzvodjenjaBySifraPredstave(sifraPredstave);
+            var izvodjenja = _izvodjenjeService.GetIzvodjenjaByIdPredstave(idPredstave);
             return izvodjenja;
         }
 

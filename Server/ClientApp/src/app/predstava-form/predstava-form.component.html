@@ -56,11 +56,11 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
+        <button *ngIf="!izvodjenje.id" mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
+        <hr>
+        <br>
       </div>
     </div>
-
-    <hr>
 
     <button mat-raised-button type="submit" color="primary" [disabled]="!formRef.form.valid">Sačuvaj</button>
   </form>

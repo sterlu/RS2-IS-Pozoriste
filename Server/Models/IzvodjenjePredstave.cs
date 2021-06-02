@@ -9,19 +9,10 @@ namespace Server.Models
         [BsonId] 
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
-
-        [BsonElement("idIzvodjenja")]
-        [JsonProperty("idIzvodjenja")]
-        public string IdIzvodjenja { get; set; }
-
-        [BsonElement("sifraPredstave")]
-        [JsonProperty("sifraPredstave")]
-        public string SifraPredstave { get; set; }
-
-
-        [BsonElement("nazivPredstave")]
-        [JsonProperty("nazivPredstave")]
-        public string NazivPredstave { get; set; }
+        
+        [BsonElement("idPredstave")]
+        [JsonProperty("idPredstave")]
+        public string IdPredstave { get; set; }
 
         [BsonElement("brojSale")]
         [JsonProperty("brojSale")]
