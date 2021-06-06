@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
 using Server.Services;
@@ -29,9 +31,11 @@ namespace server.Controllers
         const string Secret = "whsec_fu9cXIXq8nd5g0N9Vb9UBHTUARlSiBrn";
 
         [HttpPost("create")]
+        [Authorize]
         public ActionResult Create(KupovinaKarteDto[] kupovine)
         {
-            Session session = placanjeService.CreateSession(kupovine, HttpContext.Request.Host.ToString());
+            var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
+            Session session = placanjeService.CreateSession(kupovine, username, HttpContext.Request.Host.ToString());
             return Json(new { id = session.Id });
         }
         
@@ -54,6 +58,10 @@ namespace server.Controllers
                 {
                     var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
                     placanjeService.PotvrdiPlacanje(session.Id);
+                } else if (stripeEvent.Type == Events.PaymentIntentCanceled)
+                {
+                    var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
+                    placanjeService.OtkaziPlacanje(session.Id);
                 }
 
                 return Ok();

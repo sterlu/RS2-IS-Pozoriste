@@ -16,7 +16,8 @@ namespace Server.Services
 
         private IzvodjenjePredstaveService _izvodjenjePredstaveService;
 
-        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService, KorisnikService korisnikService, IzvodjenjePredstaveService izvodjenjePredstaveService)
+        public PlacanjeService(PredstavaService predstavaService, KartaService kartaService,
+            KorisnikService korisnikService, IzvodjenjePredstaveService izvodjenjePredstaveService)
         {
             this.predstavaService = predstavaService;
             this.kartaService = kartaService;
@@ -24,26 +25,29 @@ namespace Server.Services
             _izvodjenjePredstaveService = izvodjenjePredstaveService;
         }
 
-        public Session CreateSession(KupovinaKarteDto[] kupovine, string domain = "localhost:5001")
+        public Session CreateSession(KupovinaKarteDto[] kupovine, string username, string domain = "localhost:5001")
         {
-            var lineItems = new List<SessionLineItemOptions>{};
+            var lineItems = new List<SessionLineItemOptions> { };
             foreach (KupovinaKarteDto kupovina in kupovine)
             {
-                Predstava predstava = predstavaService.Get(kupovina.IdPredstave);
+                Predstava predstava = predstavaService.Get(kupovina.PredstavaId);
+                IzvodjenjePredstave izvodjenje = _izvodjenjePredstaveService.Get(kupovina.IzvodjenjeId);
                 lineItems.Add(new SessionLineItemOptions
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = 50000, // predstava.Cena * 100
+                        UnitAmount = izvodjenje.Cena * 100, // predstava.Cena * 100
                         Currency = "RSD",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
-                            Name = "Karta za predstavu \"" + predstava.NazivPredstave + "\""
+                            Name = "Karta za predstavu \"" + predstava.NazivPredstave + "\"",
+                            Description = "Izvođenje " + izvodjenje.Datum + " " + izvodjenje.Vreme
                         },
                     },
                     Quantity = kupovina.Kolicina,
                 });
             }
+
             var options = new SessionCreateOptions
             {
                 // CustomerEmail = "customer@example.com", // TODO get from auth
@@ -58,18 +62,20 @@ namespace Server.Services
             };
             var service = new SessionService();
             Session session = service.Create(options);
-            
+
             foreach (KupovinaKarteDto kupovina in kupovine)
             {
                 // Predstava predstava = predstavaService.Get(kupovina.IdPredstave);
+                IzvodjenjePredstave izvodjenje = _izvodjenjePredstaveService.Get(kupovina.IzvodjenjeId);
                 for (int i = 0; i < kupovina.Kolicina; i++)
                 {
                     kartaService.Create(new Karta(
-                        500, // predstava.Cena
+                        izvodjenje.Cena, // predstava.Cena
                         "Rezervisana",
-                        kupovina.IdPredstave,
+                        kupovina.PredstavaId,
+                        kupovina.IzvodjenjeId,
                         session.Id,
-                        ""
+                        username
                     ));
                 }
             }
@@ -96,17 +102,19 @@ namespace Server.Services
                 EnableSsl = true
             };
 
-            string body = "";
-            foreach(Karta karta in karte)
+            string body = "Vaša kupovina je uspešna. Kupili ste karte:\n";
+            foreach (Karta karta in karte)
             {
                 var izvodjenje = _izvodjenjePredstaveService.Get(karta.IdIzvodjenja);
                 var predstava = predstavaService.Get(izvodjenje.IdPredstave);
-                body += "Naziv predstave: " + predstava.NazivPredstave +"\n"
-                        + "datum: " + izvodjenje.Datum +"\n"
+                body += "Naziv predstave: " + predstava.NazivPredstave + "\n"
+                        + "datum: " + izvodjenje.Datum + "\n"
                         + "vreme: " + izvodjenje.Vreme + "\n"
                         + "sala: " + izvodjenje.BrojSale + "\n"
-                        + "cena: " + karta.Cena.ToString() + "\n";
+                        + "cena: " + karta.Cena.ToString() + "\n"
+                        + "---\n";
             }
+
             var mailMessage = new MailMessage
             {
                 From = new MailAddress("matfpozoriste@gmail.com"),
@@ -117,7 +125,16 @@ namespace Server.Services
             mailMessage.To.Add(email);
 
             smtpClient.Send(mailMessage);
+        }
 
+        public void OtkaziPlacanje(string idRezervacije)
+        {
+            var karte = kartaService.GetAllForReservation(idRezervacije);
+            foreach (var karta in karte)
+            {
+                karta.Status = "Otkazana";
+                kartaService.Update(karta.Id, karta);
+            }
         }
     }
 }

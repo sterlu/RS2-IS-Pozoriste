@@ -10,11 +10,12 @@ namespace Server.Models
 {
     public class Karta
     {
-        public Karta(int cena, string status, string idPredstave, string idRezervacije, string username)
+        public Karta(int cena, string status, string idPredstave, string idIzvodjenja, string idRezervacije, string username)
         {
             Cena = cena;
             Status = status;
             IdPredstave = idPredstave;
+            IdIzvodjenja = idIzvodjenja;
             IdRezervacije = idRezervacije;
             Username = username;
         }

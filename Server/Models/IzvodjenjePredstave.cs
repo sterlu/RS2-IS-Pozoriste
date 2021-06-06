@@ -25,5 +25,9 @@ namespace Server.Models
         [BsonElement("vreme")]
         [JsonProperty("vreme")]
         public string Vreme { get; set; }
+
+        [BsonElement("cena")]
+        [JsonProperty("cena")]
+        public int Cena { get; set; }
     }
 }

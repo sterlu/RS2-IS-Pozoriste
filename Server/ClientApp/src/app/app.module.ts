@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -22,7 +22,6 @@ import { PredstavaFormComponent } from './predstava-form/predstava-form.componen
 import { PredstavaComponent } from './predstave/predstava/predstava.component';
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from '../environments/environment';
-import { KupovinaKarteComponent } from './kupovina-karte/kupovina-karte.component';
 import { IsAdminDirective } from '../helpers/is-admin.directive';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -31,6 +30,8 @@ import { KorpaComponent } from './korpa/korpa.component';
 import { PredstavaPageComponent } from './predstava-page/predstava-page.component';
 import { MatTableModule } from "@angular/material/table";
 import { MatBadgeModule } from "@angular/material/badge";
+import { TokenInterceptor } from "../helpers/token.interceptor";
+import { GotovoPlacanjeComponent } from './gotovo-placanje/gotovo-placanje.component';
 
 @NgModule({
   declarations: [
@@ -39,12 +40,12 @@ import { MatBadgeModule } from "@angular/material/badge";
     NavSidebarComponent,
     PredstavaFormComponent,
     PredstavaComponent,
-    KupovinaKarteComponent,
     IsAdminDirective,
     RegisterComponent,
     LoginComponent,
     KorpaComponent,
-    PredstavaPageComponent
+    PredstavaPageComponent,
+    GotovoPlacanjeComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +77,8 @@ import { MatBadgeModule } from "@angular/material/badge";
   providers: [
     { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
     { provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
-    { provide: MAT_DATE_LOCALE, useValue: 'sr-sp' }
+    { provide: MAT_DATE_LOCALE, useValue: 'sr-sp' },
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

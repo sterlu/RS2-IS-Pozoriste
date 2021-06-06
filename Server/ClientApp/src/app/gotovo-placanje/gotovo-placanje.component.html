@@ -1,0 +1,12 @@
+<div class="card-container" *ngIf="status">
+  <h1>Plaćanje uspešno</h1>
+  <p>Uskoro ćete dobiti potvudu na Vašu email adresu.</p>
+</div>
+
+<div class="card-container" *ngIf="!status">
+  <h1>Plaćanje otkazano</h1>
+  <p>Proces plaćanja nije dovršen.</p>
+  <p>
+    <button mat-button type="button" color="primary" (click)="pokusajPonovo()">Probaj plaćanje ponovo</button>
+  </p>
+</div>

@@ -30,6 +30,7 @@ export class AccountService {
         const user = new User();
         user.Tip = _user.tip;
         user.Username = _user.username;
+        user.Token = token;
         if (user) {
           localStorage.setItem('user', JSON.stringify(user));
           this.setCurrentUser(user);

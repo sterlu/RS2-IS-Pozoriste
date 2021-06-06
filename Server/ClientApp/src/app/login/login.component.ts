@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AccountService } from "../../services/account.service";
 import { first } from "rxjs/operators";
 
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private accountService: AccountService,
+    private route: ActivatedRoute,
   ) {
     if (this.accountService.currentUser) {
       this.router.navigate(['/']);
@@ -44,7 +45,7 @@ export class LoginComponent implements OnInit {
     this.accountService.login(this.loginForm.value)
       .pipe(first())
       .subscribe(() => {
-        this.router.navigate(['/']);
+        this.router.navigate([this.route.snapshot.queryParamMap.get('returnUrl') || '/']);
       },
       (error) => {
         this.loading = false;

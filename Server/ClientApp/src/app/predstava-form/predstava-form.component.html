@@ -56,6 +56,11 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Cena (RSD)</mat-label>
+          <input matInput type="number" matInput required [(ngModel)]="izvodjenje.cena" name="cena" />
+        </mat-form-field>
+
         <button *ngIf="!izvodjenje.Id" mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
         <hr>
         <br>

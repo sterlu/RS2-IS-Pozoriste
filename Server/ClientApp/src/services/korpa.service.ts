@@ -20,10 +20,10 @@ export class KorpaService {
 
   async ucitajPrethodnuKorpu() {
     console.log('korpa init');
-    const prethodnaKorpa = JSON.parse(localStorage.getItem('korpa'));
-    if (prethodnaKorpa) {
+    if (localStorage.getItem('korpa')) {
       this.http.get<Sala[]>(`/api/sala/`).subscribe(async (result) => {
         const sale = result;
+        const prethodnaKorpa = JSON.parse(localStorage.getItem('korpa'));
         const korpa: Rezervacija[] = await Promise.all(prethodnaKorpa.map(r => new Promise((res, rej) => {
           this.http.get<any>(`/api/predstava/${r.predstavaId}`).subscribe(result => {
             const { predstava, izvodjenja } = result;
@@ -63,10 +63,14 @@ export class KorpaService {
 
   ocisti(): void {
     localStorage.removeItem('korpa');
-    this.stanjeSource.next(null);
+    this.azurirajStanje([]);
   }
 
   brojRezervacija(): number {
     return this.stanje.reduce((sum, r) => sum + r.kolicina, 0);
+  }
+
+  ukupnaCena(): number {
+    return this.stanje.reduce((sum, r) => sum + (r.izvodjenje.cena * r.kolicina), 0);
   }
 }

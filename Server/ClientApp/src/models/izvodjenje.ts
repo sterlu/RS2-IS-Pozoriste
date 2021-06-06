@@ -6,6 +6,7 @@ export class Izvodjenje {
     public predstavaId: string = '',
     public sala: Sala = null,
     public Id: string = null,
+    public cena: number = 500,
   ) {}
 
   get datum(): string {
@@ -45,6 +46,7 @@ export class Izvodjenje {
       brojSale: this.sala.brojSale,
       datum: this._datum.toISOString().substr(0, 10),
       vreme: this.vreme,
+      cena: this.cena,
     }
   }
 }
