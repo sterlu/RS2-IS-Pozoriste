@@ -11,16 +11,13 @@ export class Predstava {
   ) {
   }
 
-  toJSON() {
+  toPayload() {
     return {
-      predstava: {
-        Id: this.Id,
-        nazivPredstave: this.nazivPredstave,
-        opis: this.opis,
-        status: this.status,
-        trajanje: this.trajanje,
-      },
-      izvodjenja: this.izvodjenja.map(i => i.toJSON()),
+      Id: this.Id,
+      nazivPredstave: this.nazivPredstave,
+      opis: this.opis,
+      status: this.status,
+      trajanje: this.trajanje,
     }
   }
 }

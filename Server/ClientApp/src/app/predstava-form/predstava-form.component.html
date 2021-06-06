@@ -1,4 +1,4 @@
-<mat-card class="predstava-form">
+<mat-card class="card-container predstava-form">
   <form (ngSubmit)="onSubmit()" #formRef="ngForm">
     <mat-form-field appearance="fill">
       <mat-label>Ime</mat-label>
@@ -56,7 +56,7 @@
           </mat-select>
         </mat-form-field>
 
-        <button *ngIf="!izvodjenje.id" mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
+        <button *ngIf="!izvodjenje.Id" mat-button type="button" color="warn" (click)="obrisiIzvodjenje(i)">Ukloni</button>
         <hr>
         <br>
       </div>

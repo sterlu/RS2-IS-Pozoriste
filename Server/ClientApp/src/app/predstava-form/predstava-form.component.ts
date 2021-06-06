@@ -68,7 +68,10 @@ export class PredstavaFormComponent implements OnInit {
 
   onSubmit(): void {
     if (!this.valid()) return;
-    const payload = this.model.toJSON();
+    const payload = {
+      predstava: this.model.toPayload(),
+      izvodjenja: this.model.izvodjenja.map(i => i.toPayload()),
+    };
     (this.id
       ? this.http.put<object[]>(`/api/predstava/${this.id}`, payload)
       : this.http.post<object[]>('/api/predstava', payload)

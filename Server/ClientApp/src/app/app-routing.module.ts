@@ -7,13 +7,16 @@ import { AuthGuard } from "../helpers/auth.guard";
 import { AdminGuard } from "../helpers/admin.guard";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { KorpaComponent } from "./korpa/korpa.component";
+import { PredstavaPageComponent } from "./predstava-page/predstava-page.component";
 
 const routes: Routes = [
   { path: '', component: PredstaveComponent, pathMatch: 'full' },
   { path: 'predstave', component: PredstaveComponent },
   { path: 'predstava/dodaj', component: PredstavaFormComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'predstava/izmeni/:id', component: PredstavaFormComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'predstava/:id', component: KupovinaKarteComponent, canActivate: [AuthGuard] },
+  { path: 'predstava/:id', component: PredstavaPageComponent, canActivate: [AuthGuard] },
+  { path: 'korpa', component: KorpaComponent },
 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },

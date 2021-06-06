@@ -16,6 +16,9 @@
       <a class="nav-item" [routerLinkActive]="['link-active']">
         <a class="nav-link text-dark" [routerLink]="['/predstava/dodaj']" *appIsAdmin>Nova predstava</a>
       </a>
+      <a class="nav-item" [routerLinkActive]="['link-active']" *ngIf="korpaService.brojRezervacija() > 0">
+        <a class="nav-link text-dark" [routerLink]="['/korpa']" [matBadge]="korpaService.brojRezervacija()" matBadgeColor="warn">Korpa</a>
+      </a>
     </div>
 
     <div class="auth">

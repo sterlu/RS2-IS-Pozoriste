@@ -1,0 +1,18 @@
+<mat-card class="card-container predstava-page-wrapper" *ngIf="predstava">
+  <mat-card-title>{{predstava.nazivPredstave}}</mat-card-title>
+  <mat-card-subtitle>{{predstava.status}}</mat-card-subtitle>
+  <mat-card-content>
+    <p>Opis: {{predstava.opis}}</p>
+    <h4>Izvođenja:</h4>
+    <div *ngIf="predstava.izvodjenja.length === 0">Trenutno nema predstojećih izvođenja.</div>
+    <div *ngFor="let izvodjenje of predstava.izvodjenja">
+      {{izvodjenje.datum}} {{izvodjenje.vreme}}
+      <button mat-button (click)="dodajUKorpu(izvodjenje)">Dodaj kartu u korpu</button>
+    </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button [routerLink]="['/predstava/', predstava.Id]">Rezerviši</button>
+<!--    <button mat-button *ngIf="predstava.status === 'u pripremi'" (click)="subscribeToNotifications()">Obavesti me</button>-->
+    <button mat-button [routerLink]="['/predstava/izmeni', predstava.Id]" *appIsAdmin>Izmeni</button>
+  </mat-card-actions>
+</mat-card>

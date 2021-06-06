@@ -1,0 +1,40 @@
+<mat-card class="card-container">
+  <table mat-table [dataSource]="rezervacije">
+
+    <ng-container matColumnDef="predstava">
+      <th mat-header-cell *matHeaderCellDef>Predstava</th>
+      <td mat-cell *matCellDef="let rez">{{rez.predstava.nazivPredstave}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="izvodjenje">
+      <th mat-header-cell *matHeaderCellDef>Izvođenje</th>
+      <td mat-cell *matCellDef="let rez">{{rez.izvodjenje.datum}} {{rez.izvodjenje.vreme}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="kolicina">
+      <th mat-header-cell *matHeaderCellDef>Količina</th>
+      <td mat-cell *matCellDef="let rez">
+        {{rez.kolicina}} kom
+        <button mat-icon-button type="button" (click)="promeniKolicinu(rez, -1)">-</button>
+        <button mat-icon-button type="button" (click)="promeniKolicinu(rez, 1)">+</button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cena">
+      <th mat-header-cell *matHeaderCellDef>Cena</th>
+      <td mat-cell *matCellDef="let rez">0.00 RSD</td>
+    </ng-container>
+
+    <ng-container matColumnDef="akcije">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let rez">
+        <button mat-button type="button" color="warn" (click)="izbaciRez(rez)">Ukloni</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="rezervacije.length === 0" class="empty">Korpa je prazna.</div>
+</mat-card>

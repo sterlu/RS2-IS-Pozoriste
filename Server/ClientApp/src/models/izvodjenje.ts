@@ -5,7 +5,7 @@ export class Izvodjenje {
     public _datum: Date,
     public predstavaId: string = '',
     public sala: Sala = null,
-    public id: string = null,
+    public Id: string = null,
   ) {}
 
   get datum(): string {
@@ -37,9 +37,10 @@ export class Izvodjenje {
     this._datum.setMinutes(+val.split(':')[1]);
   }
 
-  toJSON() {
+  toPayload() {
+    console.log('toPayload');
     return {
-      id: this.id,
+      Id: this.Id,
       idPredstave: this.predstavaId,
       brojSale: this.sala.brojSale,
       datum: this._datum.toISOString().substr(0, 10),

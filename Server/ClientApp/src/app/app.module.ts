@@ -27,6 +27,10 @@ import { IsAdminDirective } from '../helpers/is-admin.directive';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from "@angular/material-moment-adapter";
+import { KorpaComponent } from './korpa/korpa.component';
+import { PredstavaPageComponent } from './predstava-page/predstava-page.component';
+import { MatTableModule } from "@angular/material/table";
+import { MatBadgeModule } from "@angular/material/badge";
 
 @NgModule({
   declarations: [
@@ -38,7 +42,9 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from "@angular/material-mo
     KupovinaKarteComponent,
     IsAdminDirective,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    KorpaComponent,
+    PredstavaPageComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +63,8 @@ import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from "@angular/material-mo
     MatNativeDateModule,
     NgxMaterialTimepickerModule,
     MatIconModule,
+    MatTableModule,
+    MatBadgeModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: environment.production,
       enabled: true,

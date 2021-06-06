@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { loadStripe } from '@stripe/stripe-js';
-import {HttpClient} from "@angular/common/http";
-import {ActivatedRoute, Router} from "@angular/router";
+import { HttpClient } from "@angular/common/http";
+import { ActivatedRoute, Router } from "@angular/router";
+import { KorpaService } from "../../services/korpa.service";
 
 @Component({
   selector: 'app-kupovina-karte',
@@ -11,8 +12,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class KupovinaKarteComponent implements OnInit {
   id = '';
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) {
-  }
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private korpaService: KorpaService) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
@@ -33,4 +33,6 @@ export class KupovinaKarteComponent implements OnInit {
       if (result.error) {}
     }, error => console.error(error));
   }
+
+  dodajUKorpu () {}
 }

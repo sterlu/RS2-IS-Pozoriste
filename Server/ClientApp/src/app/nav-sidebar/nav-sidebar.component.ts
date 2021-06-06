@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from "../../services/account.service";
 import { User } from "../../models/user";
+import {KorpaService} from "../../services/korpa.service";
 
 @Component({
   selector: 'app-nav-sidebar',
@@ -10,7 +11,7 @@ import { User } from "../../models/user";
 export class NavSidebarComponent {
   user: User;
 
-  constructor(private accountService: AccountService) {
+  constructor(private accountService: AccountService, public korpaService: KorpaService) {
     accountService.currentUser$.subscribe((_user: User) => this.user = _user);
   }
 
