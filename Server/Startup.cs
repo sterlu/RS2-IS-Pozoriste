@@ -107,9 +107,8 @@ namespace Server
 
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:5002"); // prod
-                    //spa.UseAngularCliServer(npmScript: "start"); // start ng build from backend
+                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Proxy-uj zahteve ka Angular dev serveru pokrenutom eksterno
+                    spa.UseAngularCliServer(npmScript: "start"); // Pokreni Angular dev server u okviru dotnet procesa
                 }
             });
 

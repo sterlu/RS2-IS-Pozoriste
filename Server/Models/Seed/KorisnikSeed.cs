@@ -8,7 +8,7 @@ namespace Server.Models.Seed
     public class KorisnikSeed
     {
 
-        public static async void Seed(IApplicationBuilder app, IConfiguration configuration)
+        public static void Seed(IApplicationBuilder app, IConfiguration configuration)
         {
             KorisnikService _korisnikService = app.ApplicationServices.GetRequiredService<KorisnikService>();
             

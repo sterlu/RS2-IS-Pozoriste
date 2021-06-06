@@ -66,7 +66,7 @@ namespace server.Controllers
 
                 return Ok();
             }
-            catch (StripeException e)
+            catch (StripeException)
             {
                 return BadRequest();
             }

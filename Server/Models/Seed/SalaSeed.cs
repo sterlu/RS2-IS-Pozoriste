@@ -8,7 +8,7 @@ namespace Server.Models.Seed
     public class SalaSeed
     {
         
-        public static async void Seed(IApplicationBuilder app, IConfiguration configuration)
+        public static void Seed(IApplicationBuilder app, IConfiguration configuration)
         {
             SalaService _salaService = app.ApplicationServices.GetRequiredService<SalaService>();
             
