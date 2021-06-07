@@ -42,12 +42,10 @@ namespace Server.Models
 
         [BsonElement("idRezervacije")]
         [JsonProperty("idRezervacije")]
-        public string IdRezervacije { get; set; } //rezervacija
+        public string IdRezervacije { get; set; } 
 
-        // [BsonElement("id_korisnika")] // za kada se ime kolone(property) u bazi ne poklapa sa imenom promenljive
-        // [JsonProperty("id_korisnika")] // ako se koristi NuGet biblioteka Microsoft.AspNetCore.Mvc.NewtonsoftJson -> using Newtonsoft.Json;
         [BsonElement("username")]
         [JsonProperty("username")]
-        public string Username { get; set; } //klijent
+        public string Username { get; set; } 
     }
 }

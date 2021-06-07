@@ -13,7 +13,9 @@ namespace Server.Services
         private VapidDetails _vapidDetails;
         private PredstavaService _predstavaService;
 
-        public PushPretplataService(IMyDatabaseSettings settings, [FromServices] VapidDetails vapidDetails, PredstavaService predstavaService)
+        private MailingService _mailingService;
+
+        public PushPretplataService(IMyDatabaseSettings settings, [FromServices] VapidDetails vapidDetails, PredstavaService predstavaService, MailingService mailiingService)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
@@ -22,6 +24,8 @@ namespace Server.Services
 
             _vapidDetails = vapidDetails;
             _predstavaService = predstavaService;
+
+            _mailingService = mailiingService;
         }
 
         public List<PushPretplata> Get() =>
@@ -47,8 +51,6 @@ namespace Server.Services
         
         public void Obavesti(string idPredstave)
         {
-            // TODO: ubaciti ovde obavestavanje mailom za nove predstave iz korisnik kontrolera,
-            //       ili prebaciti sve u mailingList u korisnik servisu pozvati ovde
             
             var predstava = _predstavaService.Get(idPredstave);
             var client = new WebPushClient();
@@ -56,6 +58,10 @@ namespace Server.Services
                 "{\"notification\":{\"title\":\"Predstava se uskoro izvodi!\",\"body\":\"Predstava \\\""
                 + predstava.NazivPredstave
                 + "\\\" za koju ste zatražili obaveštenja uskoro kreće sa izvođenjem!\"}}";
+
+            _mailingService.PosaljiObavestenje(sadrzaj);
+
+
             var subs = _pretplate.Find(pretplata => pretplata.IdPredstave == idPredstave).ToList();
             foreach (var pretplata in subs)
             {

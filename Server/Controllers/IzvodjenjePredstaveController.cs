@@ -41,7 +41,7 @@ namespace Server.Controllers
             return repertoar;
         }
 
-        [HttpGet("{sifraPredstave}")]
+        [HttpGet("{idPredstave}")] 
         public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string idPredstave)
         {
             var izvodjenja = _izvodjenjeService.GetIzvodjenjaByIdPredstave(idPredstave);

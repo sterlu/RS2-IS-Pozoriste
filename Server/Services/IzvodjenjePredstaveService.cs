@@ -29,6 +29,10 @@ namespace Server.Services
         public List<IzvodjenjePredstave> GetByDate(string datum) =>
             _izvodjenja.Find(izvodjenje => izvodjenje.Datum == datum).ToList();
 
+        public IzvodjenjePredstave GetByIdIzvodjenja(string idIzvodjenja) =>
+            _izvodjenja.Find<IzvodjenjePredstave>(izvodjenje => izvodjenje.IdIzvodjenja == idIzvodjenja)
+                  .FirstOrDefault();
+
         public IzvodjenjePredstave Get(string id) =>
             _izvodjenja.Find<IzvodjenjePredstave>(izvodjenje => izvodjenje.Id == id)
                   .FirstOrDefault();

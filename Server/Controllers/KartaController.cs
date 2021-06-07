@@ -51,13 +51,11 @@ namespace Server.Controllers
         [HttpPost]
         public ActionResult<Karta> Create(Karta karta)
         {
-            _kartaService.Create(karta);
-
-            // https://docs.microsoft.com/en-us/dotnet/api/system.web.http.apicontroller.createdatroute?view=aspnetcore-2.2
-            //  CreatedAtRoute in the Create action method returns an HTTP 201 response.
-            //  Status code 201 is the standard response for an HTTP POST method that creates a new resource on the server.
-            //  CreatedAtRoute also adds a Location header to the response. The Location header specifies the URI of the newly created book.
-            return CreatedAtRoute("GetKarta", new { id = karta.Id.ToString() }, karta);
+           var k =  _kartaService.Create(karta);
+           if (k != null)
+                return CreatedAtRoute("GetKarta", new { id = karta.Id.ToString() }, karta);
+            // nema slobodnih karata
+            return null;
         }
 
         [HttpPut("{id:length(24)}")]

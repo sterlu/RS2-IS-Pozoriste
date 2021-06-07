@@ -12,12 +12,15 @@ namespace Server.Services
         private readonly IMongoCollection<Karta> _karte;
 
         #region snippet_KartaServiceConstructor
-        public KartaService(IMyDatabaseSettings settings)
+
+        private IzvodjenjePredstaveService _izvodjenjeService;
+        public KartaService(IMyDatabaseSettings settings, IzvodjenjePredstaveService izvodjenjeService)
         {
             var client = new MongoClient(settings.ConnectionString);
             var database = client.GetDatabase(settings.DatabaseName);
 
-            _karte = database.GetCollection<Karta>(settings.KartaCollectionName); // Drugi servis koristi neku drugu tabelu
+            _karte = database.GetCollection<Karta>(settings.KartaCollectionName); 
+            _izvodjenjeService = izvodjenjeService;
         }
         #endregion
 
@@ -38,10 +41,17 @@ namespace Server.Services
                   .FirstOrDefault();
 
         public Karta Create(Karta karta)
-        {
-            // TODO proveri da li je dostupan dovoljan broj karata za konkretno izvođenje
-            _karte.InsertOne(karta);
-            return karta;
+        { 
+            string idIzvodjenja = karta.IdIzvodjenja;
+            var izvodjenje = _izvodjenjeService.GetByIdIzvodjenja(idIzvodjenja);
+            if(izvodjenje.BrojSlobodnihKarata > 0)
+            {
+                _karte.InsertOne(karta);
+                izvodjenje.BrojSlobodnihKarata-=1;
+                _izvodjenjeService.Update(izvodjenje.Id, izvodjenje);
+                return karta;
+            }
+            return null;
         }
 
         public void Update(string id, Karta newValForKarta) =>

@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
 using Server.Models;
 using Stripe.Checkout;
-using System.Net.Mail;
-using System.Net;
 
 namespace Server.Services
 {
@@ -16,13 +14,16 @@ namespace Server.Services
 
         private IzvodjenjePredstaveService _izvodjenjePredstaveService;
 
+        private MailingService _mailingService;
+
         public PlacanjeService(PredstavaService predstavaService, KartaService kartaService,
-            KorisnikService korisnikService, IzvodjenjePredstaveService izvodjenjePredstaveService)
+            KorisnikService korisnikService, IzvodjenjePredstaveService izvodjenjePredstaveService, MailingService mailingService)
         {
             this.predstavaService = predstavaService;
             this.kartaService = kartaService;
             _korisnikService = korisnikService;
             _izvodjenjePredstaveService = izvodjenjePredstaveService;
+            _mailingService = mailingService;
         }
 
         public Session CreateSession(KupovinaKarteDto[] kupovine, string username, string domain = "localhost:5001")
@@ -95,19 +96,12 @@ namespace Server.Services
             string kartaUsername = kartaService.GetByRezervacijaId(idRezervacije).Username;
             string email = _korisnikService.GetByUsername(kartaUsername).Email;
 
-            var smtpClient = new SmtpClient("smtp.gmail.com")
-            {
-                Port = 587,
-                Credentials = new NetworkCredential("matfpozoriste@gmail.com", "pozoriste123"),
-                EnableSsl = true
-            };
-
-            string body = "Vaša kupovina je uspešna. Kupili ste karte:\n";
+            string emailSadrzaj = "Vaša kupovina je uspešna. Kupili ste karte:\n";
             foreach (Karta karta in karte)
             {
                 var izvodjenje = _izvodjenjePredstaveService.Get(karta.IdIzvodjenja);
                 var predstava = predstavaService.Get(izvodjenje.IdPredstave);
-                body += "Naziv predstave: " + predstava.NazivPredstave + "\n"
+                emailSadrzaj += "Naziv predstave: " + predstava.NazivPredstave + "\n"
                         + "datum: " + izvodjenje.Datum + "\n"
                         + "vreme: " + izvodjenje.Vreme + "\n"
                         + "sala: " + izvodjenje.BrojSale + "\n"
@@ -115,16 +109,8 @@ namespace Server.Services
                         + "---\n";
             }
 
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress("matfpozoriste@gmail.com"),
-                Subject = "Vasa karta",
-                Body = body,
-                IsBodyHtml = false
-            };
-            mailMessage.To.Add(email);
-
-            smtpClient.Send(mailMessage);
+            _mailingService.PosaljiKartu(emailSadrzaj, email);
+            
         }
 
         public void OtkaziPlacanje(string idRezervacije)

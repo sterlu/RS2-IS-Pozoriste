@@ -44,7 +44,7 @@ namespace Server.Services
             return korisnik;
         }
 
-        public Korisnik Register(string username, string password, string email, string tip = "korisnik")
+        public Korisnik Register(string username, string password, string email, string obavestenja,  string tip = "korisnik")
         {
             using var hmac = new HMACSHA512();
 
@@ -53,7 +53,9 @@ namespace Server.Services
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password)),
                 PasswordSalt = hmac.Key, 
                 Email = email, 
-                Tip = tip
+                Tip = tip, 
+                EmailObavestenja = obavestenja
+
             };
 
             return Create(korisnik);

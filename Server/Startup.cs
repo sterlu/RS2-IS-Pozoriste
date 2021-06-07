@@ -52,6 +52,7 @@ namespace Server
             services.AddSingleton<IzvodjenjePredstaveService>();
             services.AddSingleton<PushPretplataService>();
             services.AddSingleton<PlacanjeService>();
+            services.AddSingleton<MailingService>();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
