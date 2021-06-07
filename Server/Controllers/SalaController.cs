@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Server.Helpers;
 using Server.Models;
 using Server.Services;
 
@@ -36,6 +37,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<Sala> Create(Sala sala)
         {
             _salaService.Create(sala);
@@ -45,6 +47,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, Sala newValForSala)
         {
             var sala = _salaService.Get(id);
@@ -60,6 +63,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var sala = _salaService.Get(id);

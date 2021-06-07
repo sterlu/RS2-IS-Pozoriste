@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
 using System;
+using Server.Helpers;
 
 namespace Server.Controllers
 {
@@ -19,6 +20,7 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [AdminOnly]
         public ActionResult<List<IzvodjenjePredstave>> Get() =>
             _izvodjenjeService.Get();
 
@@ -34,6 +36,7 @@ namespace Server.Controllers
 
             return izvodjenje;
         }
+        
         [HttpGet("dnevniRepertoar/{datum}")]
         public ActionResult<List<IzvodjenjePredstave>> DnevniRepertoar(string datum)
         {
@@ -49,6 +52,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<IzvodjenjePredstave> Create(IzvodjenjePredstave izvodjenje)
         {
             _izvodjenjeService.Create(izvodjenje);
@@ -58,6 +62,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, IzvodjenjePredstave newValForIzvodjenje)
         {
             var izvodjenje = _izvodjenjeService.Get(id);
@@ -73,6 +78,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var izvodjenje = _izvodjenjeService.Get(id);

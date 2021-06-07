@@ -90,6 +90,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, Korisnik newValForKorisnik)
         {
             var korisnik = _korisnikService.Get(id);
@@ -105,6 +106,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var korisnik = _korisnikService.Get(id);
@@ -117,33 +119,6 @@ namespace Server.Controllers
             _korisnikService.Remove(korisnik.Id);
 
             return NoContent();
-        } 
-
-        // [HttpGet("mailingLista")]
-        // public void PosaljiObavestenje(string obavestenje)
-        // {
-        //     var mailingLista = _korisnikService.MailingList();
-            
-        //     var smtpClient = new SmtpClient("smtp.gmail.com")
-        //     {
-        //         Port = 587,
-        //         Credentials = new NetworkCredential("matfpozoriste@gmail.com", "pozoriste123"),
-        //         EnableSsl = true
-        //     };
-        //     var mailMessage = new MailMessage
-        //     {
-        //         From = new MailAddress("email"),
-        //         Subject = "Nova predstava",
-        //         Body = obavestenje,
-        //         IsBodyHtml = false
-        //     };
-        //     foreach(Korisnik korisnik in mailingLista)
-        //     {
-        //         mailMessage.To.Add(korisnik.Email);  
-        //     }
-        //     smtpClient.Send(mailMessage);
-
-        // }
-
+        }
     }
 }

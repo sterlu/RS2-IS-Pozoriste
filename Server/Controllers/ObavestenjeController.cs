@@ -1,4 +1,5 @@
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Models;
 using Server.Services;
@@ -18,6 +19,7 @@ namespace Server.Controllers
         
         [HttpPost("subscribe")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [Authorize]
         public ActionResult<PushPretplata> Subscribe([FromBody] PushPretplata sub)
         {
             return _pushPretplataService.Create(sub);

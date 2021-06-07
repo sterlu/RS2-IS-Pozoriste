@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Server.Helpers;
 
 namespace Server.Controllers
 {
@@ -32,10 +33,12 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [AdminOnly]
         public ActionResult<List<Karta>> Get() =>
             _kartaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetKarta")]
+        [AdminOnly]
         public ActionResult<Karta> Get(string id)
         {
             var karta = _kartaService.Get(id);
@@ -49,6 +52,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<Karta> Create(Karta karta)
         {
            var k =  _kartaService.Create(karta);
@@ -59,6 +63,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, Karta newValForKarta)
         {
             var karta = _kartaService.Get(id);
@@ -74,6 +79,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var karta = _kartaService.Get(id);

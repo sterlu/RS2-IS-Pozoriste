@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Server.Services;
 using Server.Models;
 using System.Collections.Generic;
+using Server.Helpers;
 
 namespace Server.Controllers
 {
@@ -17,10 +18,12 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [AdminOnly]
         public ActionResult<List<ZahtevZaPovracajNovca>> Get() =>
             _zahtevService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetZahtev")]
+        [AdminOnly]
         public ActionResult<ZahtevZaPovracajNovca> Get(string id)
         {
             var zahtev = _zahtevService.Get(id);
@@ -34,6 +37,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<ZahtevZaPovracajNovca> Create(ZahtevZaPovracajNovca zahtev)
         {
             _zahtevService.Create(zahtev);
@@ -43,6 +47,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, ZahtevZaPovracajNovca newValForZahtev)
         {
             var zahtev = _zahtevService.Get(id);
@@ -58,6 +63,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var zahtev = _zahtevService.Get(id);

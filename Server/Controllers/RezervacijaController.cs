@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Server.Helpers;
 using Server.Models;
 using Server.Services;
 
@@ -17,10 +18,12 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        [AdminOnly]
         public ActionResult<List<Rezervacija>> Get() =>
             _rezervacijaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetRezervacija")]
+        [AdminOnly]
         public ActionResult<Rezervacija> Get(string id)
         {
             var rezervacija = _rezervacijaService.Get(id);
@@ -34,6 +37,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<Rezervacija> Create(Rezervacija rezervacija)
         {
             _rezervacijaService.Create(rezervacija);
@@ -43,6 +47,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, Rezervacija newValForRezervacija)
         {
             var rezervacija = _rezervacijaService.Get(id);
@@ -58,6 +63,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var rezervacija = _rezervacijaService.Get(id);

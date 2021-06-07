@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
+using Server.Helpers;
 using Server.Models;
 using Server.Services;
 
@@ -42,6 +43,7 @@ namespace Server.Controllers
 
 
         [HttpPost]
+        [AdminOnly]
         public ActionResult<Predstava> Create(PredstavaDto payload)
         {
             var predstava = _predstavaService.Create(payload.predstava);
@@ -56,6 +58,7 @@ namespace Server.Controllers
         }
 
         [HttpPut("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Update(string id, PredstavaDto payload)
         {
             var predstava = _predstavaService.Get(id);
@@ -81,6 +84,7 @@ namespace Server.Controllers
         }
 
         [HttpDelete("{id:length(24)}")]
+        [AdminOnly]
         public IActionResult Delete(string id)
         {
             var predstava = _predstavaService.Get(id);
