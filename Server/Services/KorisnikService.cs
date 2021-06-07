@@ -35,7 +35,7 @@ namespace Server.Services
                   .FirstOrDefault();
 
         public List<Korisnik> MailingList() =>
-            _korisnici.Find<Korisnik>(korisnik => korisnik.EmailObavestenja == "da")
+            _korisnici.Find<Korisnik>(korisnik => korisnik.EmailObavestenja == true)
                   .ToList();
 
         public Korisnik Create(Korisnik korisnik)
@@ -44,7 +44,7 @@ namespace Server.Services
             return korisnik;
         }
 
-        public Korisnik Register(string username, string password, string email, string obavestenja,  string tip = "korisnik")
+        public Korisnik Register(string username, string password, string email, bool obavestenja,  string tip = "korisnik")
         {
             using var hmac = new HMACSHA512();
 

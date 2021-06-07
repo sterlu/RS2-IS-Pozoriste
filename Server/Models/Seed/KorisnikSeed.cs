@@ -14,7 +14,7 @@ namespace Server.Models.Seed
             
             if (_korisnikService.GetByUsername("admin") == null)
             {
-                _korisnikService.Register("admin", configuration.GetValue<string>("InitialAdminPassword"), "admin@pozoriste.com", "admin");
+                _korisnikService.Register("admin", configuration.GetValue<string>("InitialAdminPassword"), "admin@pozoriste.com", false, "admin");
             }
         }
     }

@@ -14,12 +14,14 @@ namespace Server.Controllers
         private PredstavaService _predstavaService;
         private PushPretplataService _pushPretplataService;
         private IzvodjenjePredstaveService _izvodjenjePrestaveService;
+        private MailingService _mailingService;
 
-        public PredstavaController(PredstavaService predstavaService, PushPretplataService pushPretplataService, IzvodjenjePredstaveService izvodjenjePredstaveService)
+        public PredstavaController(PredstavaService predstavaService, PushPretplataService pushPretplataService, IzvodjenjePredstaveService izvodjenjePredstaveService, MailingService mailingService)
         {
             _predstavaService = predstavaService;
             _pushPretplataService = pushPretplataService;
             _izvodjenjePrestaveService = izvodjenjePredstaveService;
+            _mailingService = mailingService;
         }
 
         [HttpGet]
@@ -72,6 +74,7 @@ namespace Server.Controllers
             if (predstava.Status == "u pripremi" && payload.predstava.Status == "aktivna")
             {
                 _pushPretplataService.Obavesti(payload.predstava.Id);
+                _mailingService.PosaljiObavestenje(payload.predstava.Id);
             }
 
             return NoContent();

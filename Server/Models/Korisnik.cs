@@ -30,10 +30,8 @@ namespace Server.Models
         [JsonProperty("tip")]
         public string Tip { get; set; }
 
-        // treba promeniti naziv atributa
-        // trebalo bi da vrednost bude da ako korisnik zeli da se nadje na reklamnoj mailing listi
         [BsonElement("emailObavestenja")]
         [JsonProperty("emailObavestenja")]
-        public string  EmailObavestenja { get; set; }
+        public bool  EmailObavestenja { get; set; }
     }
 }

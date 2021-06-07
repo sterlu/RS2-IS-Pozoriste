@@ -32,6 +32,7 @@ import { MatTableModule } from "@angular/material/table";
 import { MatBadgeModule } from "@angular/material/badge";
 import { TokenInterceptor } from "../helpers/token.interceptor";
 import { GotovoPlacanjeComponent } from './gotovo-placanje/gotovo-placanje.component';
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { GotovoPlacanjeComponent } from './gotovo-placanje/gotovo-placanje.compo
     MatIconModule,
     MatTableModule,
     MatBadgeModule,
+    MatCheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       // enabled: environment.production,
       enabled: true,
