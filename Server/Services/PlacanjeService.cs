@@ -37,7 +37,7 @@ namespace Server.Services
                 {
                     PriceData = new SessionLineItemPriceDataOptions
                     {
-                        UnitAmount = izvodjenje.Cena * 100, // predstava.Cena * 100
+                        UnitAmount = izvodjenje.Cena * 100,
                         Currency = "RSD",
                         ProductData = new SessionLineItemPriceDataProductDataOptions
                         {
@@ -71,7 +71,7 @@ namespace Server.Services
                 for (int i = 0; i < kupovina.Kolicina; i++)
                 {
                     kartaService.Create(new Karta(
-                        izvodjenje.Cena, // predstava.Cena
+                        izvodjenje.Cena,
                         "Rezervisana",
                         kupovina.PredstavaId,
                         kupovina.IzvodjenjeId,
@@ -105,7 +105,8 @@ namespace Server.Services
                         + "datum: " + izvodjenje.Datum + "\n"
                         + "vreme: " + izvodjenje.Vreme + "\n"
                         + "sala: " + izvodjenje.BrojSale + "\n"
-                        + "cena: " + karta.Cena.ToString() + "\n"
+                        + "cena: " + karta.Cena + "\n"
+                        + "karta: " + karta.Id + "\n"
                         + "---\n";
             }
 

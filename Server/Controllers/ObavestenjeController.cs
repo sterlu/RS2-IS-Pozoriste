@@ -11,10 +11,12 @@ namespace Server.Controllers
     public class ObavestenjeController
     {
         private PushPretplataService _pushPretplataService;
+        private MailingService _mailingService;
 
-        public ObavestenjeController(PushPretplataService pushPretplataService)
+        public ObavestenjeController(PushPretplataService pushPretplataService, MailingService mailingService)
         {
             _pushPretplataService = pushPretplataService;
+            _mailingService = mailingService;
         }
         
         [HttpPost("subscribe")]
@@ -23,6 +25,13 @@ namespace Server.Controllers
         public ActionResult<PushPretplata> Subscribe([FromBody] PushPretplata sub)
         {
             return _pushPretplataService.Create(sub);
+        }
+
+        [HttpGet("posaljikartu/{idRezervacije}")]
+        public IActionResult PosaljiPlacenuKartu(string idRezervacije)
+        {
+            _mailingService.PosaljiPlacenuKartu(idRezervacije);
+            return new NoContentResult();
         }
     }
 }

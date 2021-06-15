@@ -2,18 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using AspNetCore.Proxy;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
+using Server.Models;
 using Server.Services;
 using Stripe;
 using Stripe.Checkout;
-
-public class StripeOptions
-{
-    public string option { get; set; }
-}
 
 namespace server.Controllers
 {
@@ -21,55 +22,41 @@ namespace server.Controllers
     [ApiController]
     public class PlacanjeController : Controller
     {
-        private PlacanjeService placanjeService;
-
-        public PlacanjeController(PlacanjeService placanjeService)
+        private PredstavaService predstavaService;
+        private IzvodjenjePredstaveService izvodjenjeService;
+        private DomainSettings domains;
+        public PlacanjeController(PredstavaService predstavaService, IzvodjenjePredstaveService izvodjenjeService, DomainSettings domains)
         {
-            this.placanjeService = placanjeService;
+            this.predstavaService = predstavaService;
+            this.izvodjenjeService = izvodjenjeService;
+            this.domains = domains;
         }
-
-        const string Secret = "whsec_fu9cXIXq8nd5g0N9Vb9UBHTUARlSiBrn";
-
+        
         [HttpPost("create")]
         [Authorize]
-        public ActionResult Create(KupovinaKarteDto[] kupovine)
+        public async Task<ActionResult<string>> Create(KupovinaKarteDto[] kupovine)
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
-            Session session = placanjeService.CreateSession(kupovine, username, HttpContext.Request.Host.ToString());
-            return Json(new { id = session.Id });
+            KupovinaKarteInternalPayloadDTO payload = new KupovinaKarteInternalPayloadDTO();
+            payload.kupovine = new List<KupovinaKarteInternalDto>(kupovine.Length);
+            foreach (KupovinaKarteDto kupovina in kupovine)
+            {
+                var _kupovina = new KupovinaKarteInternalDto();
+                _kupovina.predstava = predstavaService.Get(kupovina.PredstavaId);
+                _kupovina.izvodjenje = izvodjenjeService.Get(kupovina.IzvodjenjeId);
+                _kupovina.Kolicina = kupovina.Kolicina;
+                payload.kupovine.Add(_kupovina);
+            }
+            payload.username = username;
+            var response = await (new HttpClient()).PostAsync(domains.PaymentServiceDomain + "/placanje/create", new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+            var content = await response.Content.ReadAsStringAsync();
+            return content;
         }
         
         [HttpPost("webhook")]
-        public async Task<IActionResult> Index()
+        public Task Index()
         {
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            Console.Write(json);
-
-            try
-            {
-                var stripeEvent = EventUtility.ConstructEvent(
-                    json,
-                    Request.Headers["Stripe-Signature"],
-                    Secret
-                );
-
-                // checkout.session.completed
-                if (stripeEvent.Type == Events.CheckoutSessionCompleted)
-                {
-                    var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
-                    placanjeService.PotvrdiPlacanje(session.Id);
-                } else if (stripeEvent.Type == Events.PaymentIntentCanceled)
-                {
-                    var session = stripeEvent.Data.Object as Stripe.Checkout.Session;
-                    placanjeService.OtkaziPlacanje(session.Id);
-                }
-
-                return Ok();
-            }
-            catch (StripeException)
-            {
-                return BadRequest();
-            }
+            return this.HttpProxyAsync(domains.PaymentServiceDomain + "/placanje/webhook");
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AspNetCore.Proxy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using WebPush;
 using Server.Interfaces;
@@ -37,11 +38,11 @@ namespace Server
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.Configure<MyDatabaseSettings>(
-                Configuration.GetSection(nameof(MyDatabaseSettings)));
-
-            services.AddSingleton<IMyDatabaseSettings>(sp =>
-                sp.GetRequiredService<IOptions<MyDatabaseSettings>>().Value);
+            services.Configure<MyDatabaseSettings>(Configuration.GetSection(nameof(MyDatabaseSettings)));
+            services.AddSingleton<IMyDatabaseSettings>(sp => sp.GetRequiredService<IOptions<MyDatabaseSettings>>().Value);
+            
+            services.Configure<DomainSettings>(Configuration.GetSection(nameof(DomainSettings)));
+            services.AddSingleton<DomainSettings>(sp => sp.GetRequiredService<IOptions<DomainSettings>>().Value);
 
             services.AddSingleton<KartaService>();
             services.AddSingleton<KorisnikService>();
@@ -53,6 +54,8 @@ namespace Server
             services.AddSingleton<PushPretplataService>();
             services.AddSingleton<PlacanjeService>();
             services.AddSingleton<MailingService>();
+
+            services.AddProxies();
 
             services.AddControllers()
                     .AddNewtonsoftJson(options => options.UseMemberCasing());
@@ -108,8 +111,8 @@ namespace Server
 
                 if (env.IsDevelopment())
                 {
-                    // spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Proxy-uj zahteve ka Angular dev serveru pokrenutom eksterno
-                    spa.UseAngularCliServer(npmScript: "start"); // Pokreni Angular dev server u okviru dotnet procesa
+                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200"); // Proxy-uj zahteve ka Angular dev serveru pokrenutom eksterno
+                    // spa.UseAngularCliServer(npmScript: "start"); // Pokreni Angular dev server u okviru dotnet procesa
                 }
             });
 

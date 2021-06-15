@@ -3,6 +3,9 @@ using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System.Globalization;
 
+/**
+ * TODO Obrisati
+ */
 namespace Server.Models
 {
     public class ZahtevZaPovracajNovca

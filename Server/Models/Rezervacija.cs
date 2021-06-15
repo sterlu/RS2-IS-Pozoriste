@@ -2,6 +2,9 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 
+/**
+ * TODO Obrisati
+ */
 namespace Server.Models
 {
     public class Rezervacija

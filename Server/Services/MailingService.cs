@@ -8,10 +8,14 @@ namespace Server.Services
     {
         private KorisnikService _korisnikService;
         private PredstavaService _predstavaService;
-        public MailingService(KorisnikService korisnikService, PredstavaService predstavaService)
+        private KartaService _kartaService;
+        private IzvodjenjePredstaveService _izvodjenjePredstaveService;
+        public MailingService(KorisnikService korisnikService, PredstavaService predstavaService, IzvodjenjePredstaveService izvodjenjePredstaveService, KartaService kartaService)
         {
             _korisnikService = korisnikService;
             _predstavaService = predstavaService;
+            _izvodjenjePredstaveService = izvodjenjePredstaveService;
+            _kartaService = kartaService;
         }
 
         public void PosaljiObavestenje(string idPredstave)
@@ -53,7 +57,7 @@ namespace Server.Services
             };
             var mailMessage = new MailMessage
             {
-                From = new MailAddress("email"),
+                From = new MailAddress("matfpozoriste@gmail.com"),
                 Subject = "Vase karte",
                 Body = sadrzaj,
                 IsBodyHtml = false
@@ -64,5 +68,29 @@ namespace Server.Services
             smtpClient.Send(mailMessage);
         }
         
+        public void PosaljiPlacenuKartu(string idRezervacije)
+        {
+            string kartaUsername = _kartaService.GetByRezervacijaId(idRezervacije).Username;
+            string email = _korisnikService.GetByUsername(kartaUsername).Email;
+            var karte = _kartaService.GetAllForReservation(idRezervacije);
+            
+            string emailSadrzaj = "Vaša kupovina je uspešna. Kupili ste karte:\n";
+
+            foreach (Karta karta in karte)
+            {
+                var izvodjenje = _izvodjenjePredstaveService.Get(karta.IdIzvodjenja);
+                var predstava = _predstavaService.Get(izvodjenje.IdPredstave);
+                emailSadrzaj += "Naziv predstave: " + predstava.NazivPredstave + "\n"
+                                + "datum: " + izvodjenje.Datum + "\n"
+                                + "vreme: " + izvodjenje.Vreme + "\n"
+                                + "sala: " + izvodjenje.BrojSale + "\n"
+                                + "cena: " + karta.Cena + "\n"
+                                + "karta: " + karta.Id + "\n"
+                                + "---\n";
+            }
+            
+            this.PosaljiKartu(emailSadrzaj, email);
+        }
+
     }
 }
