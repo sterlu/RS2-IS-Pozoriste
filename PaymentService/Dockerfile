@@ -5,10 +5,9 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["../PaymentService/PaymentService/PaymentService.csproj", "PaymentService/"]
-RUN dotnet restore "../PaymentService/PaymentService/PaymentService.csproj"
+COPY ./PaymentService.csproj ./
+RUN dotnet restore
 COPY . .
-WORKDIR "/src/PaymentService"
 RUN dotnet build "PaymentService.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -17,4 +16,4 @@ RUN dotnet publish "PaymentService.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PaymentService.dll"]
+ENTRYPOINT ["dotnet", "PaymentService.dll", "--launch-profile", "Docker"]

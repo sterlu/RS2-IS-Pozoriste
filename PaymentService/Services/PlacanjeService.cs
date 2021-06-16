@@ -50,8 +50,8 @@ namespace PaymentService.Services
                 },
                 LineItems = lineItems,
                 Mode = "payment",
-                SuccessUrl = domains.MainDomain + "/gotova-kupovina?success=true",
-                CancelUrl = domains.MainDomain + "/gotova-kupovina?canceled=true",
+                SuccessUrl = domains.ExternalDomain + "/gotova-kupovina?success=true",
+                CancelUrl = domains.ExternalDomain + "/gotova-kupovina?canceled=true",
             };
             var service = new SessionService();
             Session session = service.Create(options);
@@ -83,7 +83,7 @@ namespace PaymentService.Services
                 _kartaService.Update(karta.Id, karta);
             }
 
-            (new HttpClient()).GetAsync(domains.MainDomain + "/api/obavestenje/posaljikartu/" + idRezervacije);
+            (new HttpClient()).GetAsync(domains.Server + "/api/obavestenje/posaljikartu/" + idRezervacije);
         }
 
         public void OtkaziPlacanje(string idRezervacije)

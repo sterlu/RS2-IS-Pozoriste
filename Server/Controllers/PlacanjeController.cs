@@ -48,7 +48,7 @@ namespace server.Controllers
                 payload.kupovine.Add(_kupovina);
             }
             payload.username = username;
-            var response = await (new HttpClient()).PostAsync(domains.PaymentServiceDomain + "/placanje/create", new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
+            var response = await (new HttpClient()).PostAsync(domains.PaymentService + "/placanje/create", new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json"));
             var content = await response.Content.ReadAsStringAsync();
             return content;
         }
@@ -56,7 +56,7 @@ namespace server.Controllers
         [HttpPost("webhook")]
         public Task Index()
         {
-            return this.HttpProxyAsync(domains.PaymentServiceDomain + "/placanje/webhook");
+            return this.HttpProxyAsync(domains.PaymentService + "/placanje/webhook");
         }
     }
 }
