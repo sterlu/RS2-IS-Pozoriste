@@ -47,9 +47,7 @@ namespace Server
             services.AddSingleton<KartaService>();
             services.AddSingleton<KorisnikService>();
             services.AddSingleton<PredstavaService>();
-            services.AddSingleton<RezervacijaService>();
             services.AddSingleton<SalaService>();
-            services.AddSingleton<ZahtevZaPovracajNovcaService>();
             services.AddSingleton<IzvodjenjePredstaveService>();
             services.AddSingleton<PushPretplataService>();
             services.AddSingleton<PlacanjeService>();
