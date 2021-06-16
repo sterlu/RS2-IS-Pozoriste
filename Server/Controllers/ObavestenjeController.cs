@@ -24,5 +24,14 @@ namespace Server.Controllers
         {
             return _pushPretplataService.Create(sub);
         }
+
+        [HttpDelete("unsubscribe/{username}/{idPredstave}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [Authorize]
+        public void Unsubscribe(string username, string idPredstave)
+        {
+
+            _pushPretplataService.Remove(username, idPredstave);
+        }
     }
 }

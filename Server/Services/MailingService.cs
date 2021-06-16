@@ -8,6 +8,7 @@ namespace Server.Services
     {
         private KorisnikService _korisnikService;
         private PredstavaService _predstavaService;
+        private PushPretplataService _pushPretplataService;
         public MailingService(KorisnikService korisnikService, PredstavaService predstavaService)
         {
             _korisnikService = korisnikService;

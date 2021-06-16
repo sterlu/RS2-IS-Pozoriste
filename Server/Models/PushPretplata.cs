@@ -25,5 +25,11 @@ namespace Server.Models
         [BsonElement("idPredstave")]
         [JsonProperty("idPredstave")]
         public string IdPredstave { get; set; }
+
+        [BsonElement("username")]
+        [JsonProperty("username")]
+        public string Username { get; set; }
+        
+        
     }
 }

@@ -45,10 +45,13 @@ namespace Server.Services
         public void Remove(string id) => 
             _pretplate.DeleteOne(pretplata => pretplata.Id == id);
         
+        public void Remove(string username, string idPredstave) => 
+            _pretplate.DeleteOne(pretplata => pretplata.Username == username && pretplata.IdPredstave == idPredstave);
+        
         public void Obavesti(string idPredstave)
         {
             
-            var predstava = _predstavaService.Get(idPredstave);
+            var predstava = _predstavaService.Get(idPredstave); 
             var client = new WebPushClient();
             var sadrzaj =
                 "{\"notification\":{\"title\":\"Predstava se uskoro izvodi!\",\"body\":\"Predstava \\\""
