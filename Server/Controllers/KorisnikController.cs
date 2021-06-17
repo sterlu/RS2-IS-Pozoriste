@@ -120,5 +120,13 @@ namespace Server.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("emailObavestenja/{username}")]
+        public IActionResult PromeniEmailObavestenja(string username)
+        {
+            _korisnikService.UpdateObavestenja(username);
+            return NoContent();
+
+        }
     }
 }

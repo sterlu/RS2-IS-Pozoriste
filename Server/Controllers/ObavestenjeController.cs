@@ -33,5 +33,14 @@ namespace Server.Controllers
             _mailingService.PosaljiPlacenuKartu(idRezervacije);
             return new NoContentResult();
         }
+
+        [HttpDelete("unsubscribe/{username}/{idPredstave}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [Authorize]
+        public void Unsubscribe(string username, string idPredstave)
+        {
+
+            _pushPretplataService.Remove(username, idPredstave);
+        }
     }
 }

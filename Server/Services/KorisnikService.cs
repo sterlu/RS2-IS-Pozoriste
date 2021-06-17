@@ -64,6 +64,13 @@ namespace Server.Services
         public void Update(string id, Korisnik newValForKorisnik) =>
             _korisnici.ReplaceOne(korisnik => korisnik.Id == id, newValForKorisnik);
 
+        public void UpdateObavestenja(string username)
+        {
+            Korisnik korisnik = GetByUsername(username);
+            korisnik.EmailObavestenja = !korisnik.EmailObavestenja;
+            _korisnici.ReplaceOne(k => k.Username == username, korisnik);
+        }
+
         public void Remove(Korisnik deleteKorisnik) =>
             _korisnici.DeleteOne(korisnik => korisnik.Id == deleteKorisnik.Id);
 
