@@ -25,7 +25,7 @@ export class PredstavaComponent {
           auth: r.toJSON().keys.auth,
           idPredstave: this.predstava.Id,
         };
-        this.http.post<object[]>('/api/obavestenje/subscribe', payload).subscribe(result => {
+        this.http.post<object[]>('/api/obavestenje/push/subscribe', payload).subscribe(result => {
           console.log(result);
           alert('Bićete obavešteni kada predstava bude spremna za izvođenje');
         }, error => console.error(error));

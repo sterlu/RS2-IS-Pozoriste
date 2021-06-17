@@ -1,14 +1,17 @@
 nav {
-  a {
-    margin-left: 10px;
-    color: white;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
+  .nav-item {
+    margin: 0 10px;
+    a {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      font-weight: normal;
+    }
   }
 
-  &.link-active a {
+  .link-active a {
     text-decoration: underline;
   }
 

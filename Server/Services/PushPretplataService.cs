@@ -29,6 +29,9 @@ namespace Server.Services
 
         public PushPretplata Get(string id) =>
             _pretplate.Find<PushPretplata>(pretplata => pretplata.Id == id).FirstOrDefault();
+        
+        public List<PushPretplata> GetForUser(string username) =>
+            _pretplate.Find<PushPretplata>(pretplata => pretplata.Username == username).ToList();
 
         public PushPretplata Create(PushPretplata pretplata)
         {

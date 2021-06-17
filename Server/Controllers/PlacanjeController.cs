@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -13,8 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using Server.DTO;
 using Server.Models;
 using Server.Services;
-using Stripe;
-using Stripe.Checkout;
 
 namespace server.Controllers
 {

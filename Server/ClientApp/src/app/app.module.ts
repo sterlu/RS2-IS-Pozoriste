@@ -33,6 +33,7 @@ import { MatBadgeModule } from "@angular/material/badge";
 import { TokenInterceptor } from "../helpers/token.interceptor";
 import { GotovoPlacanjeComponent } from './gotovo-placanje/gotovo-placanje.component';
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { PretplateComponent } from './pretplate/pretplate.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
     LoginComponent,
     KorpaComponent,
     PredstavaPageComponent,
-    GotovoPlacanjeComponent
+    GotovoPlacanjeComponent,
+    PretplateComponent
   ],
   imports: [
     BrowserModule,

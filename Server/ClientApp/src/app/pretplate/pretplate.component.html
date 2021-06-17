@@ -1,0 +1,31 @@
+<mat-card class="card-container">
+  <h2>Email obaveštenja</h2>
+  <p>
+    Email obaveštenja o novim predstavama su {{pretplate.email ? "uključena" : "isključena"}}.
+    <button mat-button type="button" color="primary" *ngIf="!pretplate.email" (click)="ukljuciEmail()">Uključi</button>
+    <button mat-button type="button" color="warn" *ngIf="pretplate.email" (click)="iskljuciEmail()">Isključi</button>
+
+  </p>
+  <br>
+
+  <h2>Aktivna push obaveštenja</h2>
+
+  <table mat-table [dataSource]="pretplate.push">
+    <ng-container matColumnDef="predstava">
+      <th mat-header-cell *matHeaderCellDef>Predstava</th>
+      <td mat-cell *matCellDef="let pret">{{pret.NazivPredstave}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="akcije">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let pret">
+        <button mat-button type="button" color="warn" (click)="obrisiPretplatu(pret.Id)">Ukloni</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="pretplate.push.length === 0" class="empty">Nema aktivnih pretplata za push obaveštenja.</div>
+</mat-card>

@@ -9,6 +9,7 @@ import { RegisterComponent } from "./register/register.component";
 import { KorpaComponent } from "./korpa/korpa.component";
 import { PredstavaPageComponent } from "./predstava-page/predstava-page.component";
 import { GotovoPlacanjeComponent } from "./gotovo-placanje/gotovo-placanje.component";
+import { PretplateComponent } from "./pretplate/pretplate.component";
 
 const routes: Routes = [
   { path: '', component: PredstaveComponent, pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'korpa', component: KorpaComponent },
   { path: 'gotova-kupovina', component: GotovoPlacanjeComponent },
 
+  { path: 'obavestenja', component: PretplateComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
 ];
