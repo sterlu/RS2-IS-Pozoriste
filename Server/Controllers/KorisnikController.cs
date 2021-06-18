@@ -16,6 +16,8 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")] 
     [ApiController]
+    /// Kontroler za model Korisnik. 
+    /// Sadrži implementaciju http zahteva vezanih za korisnike aplikacije.
     public class KorisnikController : ControllerBase
     {
         private KorisnikService _korisnikService;
@@ -29,6 +31,7 @@ namespace Server.Controllers
 
         [HttpGet]
         [AdminOnly]
+        /// Dohvata sve korisnike.
         public ActionResult<List<Korisnik>> Get()
         {
             // Console.Write(HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value);
@@ -38,6 +41,7 @@ namespace Server.Controllers
 
         [HttpGet("{id:length(24)}", Name = "GetKorisnik")]
         [AdminOnly]
+        /// Dohvata odredjenog korisnika na osnovu njegovog id-ja.
         public ActionResult<Korisnik> Get(string id)
         {
             var korisnik = _korisnikService.Get(id);
@@ -51,6 +55,7 @@ namespace Server.Controllers
         }
 
         [HttpPost]
+        /// Beleži novog korisnika u bazi.
         public ActionResult<Korisnik> Create(Korisnik korisnik)
         {
             _korisnikService.Create(korisnik);
@@ -59,6 +64,8 @@ namespace Server.Controllers
         }
 
         [HttpPost("register")]
+        /// Vrši se registracija novog korisnika. 
+        /// @param register - informacije potrebne za registraciju.
         public ActionResult<string> Register(RegisterDto register)
         {
             var korisnik = _korisnikService.Register(register.Username, register.Password, register.Email, register.EmailObavestenja); 
@@ -69,6 +76,8 @@ namespace Server.Controllers
         }
 
         [HttpPost("login")]
+        /// Vrši se logovanje postojećeg korisnika uz proveru username-a i šifre.
+        /// @param login - informacije potrebne za logovanje. 
         public ActionResult<string> Login(LoginDto login)
         {
             var korisnik = _korisnikService.GetByUsername(login.Username);
@@ -91,6 +100,9 @@ namespace Server.Controllers
 
         [HttpPut("{id:length(24)}")]
         [AdminOnly]
+        /// Menja postojeću vrednost u bazi.
+        /// @param newValForKorisnik - nova vrednost koja treba da se nadje u bazi. 
+        /// @param id - id postojeće vrednosti koja se menja.
         public IActionResult Update(string id, Korisnik newValForKorisnik)
         {
             var korisnik = _korisnikService.Get(id);
@@ -107,6 +119,7 @@ namespace Server.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [AdminOnly]
+        /// Briše postojeće izvodjenje iz baze na osnovu id-ja.
         public IActionResult Delete(string id)
         {
             var korisnik = _korisnikService.Get(id);
@@ -122,11 +135,11 @@ namespace Server.Controllers
         }
 
         [HttpPost("emailObavestenja/{username}")]
+        /// Menja vrednost atributa EmailObavestenja na suprotnu od postavljene.
         public IActionResult PromeniEmailObavestenja(string username)
         {
             _korisnikService.UpdateObavestenja(username);
             return NoContent();
-
         }
     }
 }

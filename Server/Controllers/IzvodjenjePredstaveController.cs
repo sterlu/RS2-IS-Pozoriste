@@ -10,6 +10,8 @@ namespace Server.Controllers
     [Route("api/[controller]")]
     [ApiController] 
 
+    /// Kontroler za model IzvodjenjePredstave. 
+    /// Sadrži implementaciju http zahteva vezanih za izvodjenje predstave.
     public class IzvodjenjePredstaveController : ControllerBase
     {
         private IzvodjenjePredstaveService _izvodjenjeService;
@@ -21,10 +23,12 @@ namespace Server.Controllers
 
         [HttpGet]
         [AdminOnly]
+        /// Vraća listu svih izvodjenja predstava.
         public ActionResult<List<IzvodjenjePredstave>> Get() =>
             _izvodjenjeService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetIzvodjenje")]
+        /// Dohvata izvodjenje predstave sa odredjenim id-jem.
         public ActionResult<IzvodjenjePredstave> Get(string id)
         {
             var izvodjenje = _izvodjenjeService.Get(id);
@@ -38,6 +42,7 @@ namespace Server.Controllers
         }
         
         [HttpGet("dnevniRepertoar/{datum}")]
+        /// Dohvata sva izvodjenja koja se odrzavaju odredjenog datuma.
         public ActionResult<List<IzvodjenjePredstave>> DnevniRepertoar(string datum)
         {
             var repertoar = _izvodjenjeService.GetByDate(datum);
@@ -45,6 +50,7 @@ namespace Server.Controllers
         }
 
         [HttpGet("{idPredstave}")] 
+        /// Dohvata sva izvodjenja odredjene predstave.
         public ActionResult<List<IzvodjenjePredstave>> GetIzvodjenja(string idPredstave)
         {
             var izvodjenja = _izvodjenjeService.GetIzvodjenjaByIdPredstave(idPredstave);
@@ -53,6 +59,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [AdminOnly]
+        /// Beleži novo izvodjenje u bazi.
         public ActionResult<IzvodjenjePredstave> Create(IzvodjenjePredstave izvodjenje)
         {
             _izvodjenjeService.Create(izvodjenje);
@@ -63,6 +70,9 @@ namespace Server.Controllers
 
         [HttpPut("{id:length(24)}")]
         [AdminOnly]
+        /// Menja postojecu vrednost u bazi.
+        /// @param newValForIzvodjenje - nova vrednost koja treba da se nadje u bazi. 
+        /// @param id - id postojeće vrednosti koja se menja. 
         public IActionResult Update(string id, IzvodjenjePredstave newValForIzvodjenje)
         {
             var izvodjenje = _izvodjenjeService.Get(id);
@@ -79,6 +89,7 @@ namespace Server.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [AdminOnly]
+        /// Briše postojeće izvodjenje iz baze na osnovu id-ja.
         public IActionResult Delete(string id)
         {
             var izvodjenje = _izvodjenjeService.Get(id);

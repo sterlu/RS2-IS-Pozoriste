@@ -7,6 +7,7 @@ using Server.Models;
 
 namespace Server.Services
 {
+    /// Servis koji omogućava čitanje, pisanje, menjanje i brisanje podataka iz tabele Karta.
     public class KartaService
     {
         private readonly IMongoCollection<Karta> _karte;
@@ -24,22 +25,27 @@ namespace Server.Services
         }
         #endregion
 
+        /// Vraća sve karte iz baze.
         public List<Karta> Get() =>
             _karte.Find(karta => true)
                   .ToList();
 
+        /// Vraća odredjenu kartu.
         public Karta Get(string id) =>
             _karte.Find<Karta>(karta => karta.Id == id)
                   .FirstOrDefault();
 
+        /// Vraća sve karte jedne rezervacije.
         public List<Karta> GetAllForReservation(string idRezervacije) =>
             _karte.Find<Karta>(karta => karta.IdRezervacije == idRezervacije)
                   .ToList();
 
+        /// Vraća jednu kartu odredjene rezervacije.
         public Karta GetByRezervacijaId(string idRezervacije) =>
             _karte.Find<Karta>(karta => karta.IdRezervacije == idRezervacije)
                   .FirstOrDefault();
 
+        /// Upisuje novu kartu u bazu, ukoliko ima slobodnih karata.
         public Karta Create(Karta karta)
         { 
             string idIzvodjenja = karta.IdIzvodjenja;
@@ -51,15 +57,20 @@ namespace Server.Services
                 _izvodjenjeService.Update(izvodjenje.Id, izvodjenje);
                 return karta;
             }
-            return null;
+            return null; 
         }
 
+        /// Menja postojeću vrednost u bazi.
+        /// @param id - id vrednosti koja se menja.
+        /// @param newValForKarta - nova vrednost.
         public void Update(string id, Karta newValForKarta) =>
             _karte.ReplaceOne(karta => karta.Id == id, newValForKarta);
 
+        /// Briše kartu iz baze.
         public void Remove(Karta deleteKarta) =>
             _karte.DeleteOne(karta => karta.Id == deleteKarta.Id);
 
+        /// Briše kartu iz baze na osnovu vrednosti atributa id.
         public void Remove(string id) =>
             _karte.DeleteOne(karta => karta.Id == id);
     }

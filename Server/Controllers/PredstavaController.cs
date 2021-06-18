@@ -10,6 +10,8 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /// Kontroler za model Predstava. 
+    /// Sadrži implementaciju http zahteva vezanih za predstave.
     public class PredstavaController : ControllerBase
     {
         private PredstavaService _predstavaService;
@@ -26,10 +28,12 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        /// Dohvata sve predstave.
         public ActionResult<List<Predstava>> Get() =>
             _predstavaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetPredstava")]
+        /// Dohvata odredjenu predstavu na osnovu id-ja.
         public ActionResult<PredstavaDto> Get(string id)
         {
             var predstava = _predstavaService.Get(id);
@@ -44,6 +48,8 @@ namespace Server.Controllers
 
         [HttpPost]
         [AdminOnly]
+        /// Beleži novu predstavu u bazi.
+        /// @param payload - predstava i njena izvodjenja
         public ActionResult<Predstava> Create(PredstavaDto payload)
         {
             var predstava = _predstavaService.Create(payload.predstava);
@@ -59,6 +65,7 @@ namespace Server.Controllers
 
         [HttpPut("{id:length(24)}")]
         [AdminOnly]
+        /// Menja status predstave, i obaveštava korisnike o tome.
         public IActionResult Update(string id, PredstavaDto payload)
         {
             var predstava = _predstavaService.Get(id);
@@ -85,6 +92,7 @@ namespace Server.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [AdminOnly]
+        /// Briše postojeće izvodjenje iz baze na osnovu id-ja.
         public IActionResult Delete(string id)
         {
             var predstava = _predstavaService.Get(id);

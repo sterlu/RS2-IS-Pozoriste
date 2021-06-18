@@ -19,12 +19,19 @@ export class PretplateComponent implements OnInit {
     this.dohvatiPretplate();
   }
 
+  /**
+   * Dohvatanje pretplata.
+   */
   dohvatiPretplate() {
     this.http.get<Sala[]>(`/api/obavestenje/push/subscriptions/`).subscribe(result => {
       this.pretplate = result;
     }, error => console.error(error))
   }
 
+  /**
+   * Brisanje pretplate.
+   * @param id Id pretplate.
+   */
   obrisiPretplatu(id: string): void {
     if (!confirm('Da li želite da otkažete izabranu pretplatu?')) return;
     this.http.delete<Sala[]>(`/api/obavestenje/push/unsubscribe/${id}`).subscribe(result => {
@@ -32,12 +39,18 @@ export class PretplateComponent implements OnInit {
     }, error => console.error(error))
   }
 
+  /**
+   * Uključivanje email obaveštenja o predstavama.
+   */
   ukljuciEmail() {
     this.http.put<void>(`/api/obavestenje/email/subscribe/`, null).subscribe(result => {
       this.dohvatiPretplate()
     }, error => console.error(error))
   }
 
+  /**
+   *  Isključivanje email obaveštenja o predstavama.
+   */
   iskljuciEmail() {
     this.http.put<void>(`/api/obavestenje/email/unsubscribe/`, null).subscribe(result => {
       this.dohvatiPretplate()

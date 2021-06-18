@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Server.Models
 {
+    /// Model podataka za pretplatu korisnika, kako bi dobijao obaveštenja o predstavama.
     public class PushPretplata
     {
         [BsonId] 

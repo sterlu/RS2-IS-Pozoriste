@@ -10,6 +10,7 @@ namespace Server.Models
 {
     public class Karta
     {
+        /// Model podataka za pozorišnu kartu.
         public Karta(int cena, string status, string idPredstave, string idIzvodjenja, string idRezervacije, string username)
         {
             Cena = cena;

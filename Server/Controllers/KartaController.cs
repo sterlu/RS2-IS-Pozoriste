@@ -22,7 +22,10 @@ namespace Server.Controllers
         }
      */
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController] 
+    /// Kontroler za model Karta. 
+    /// Sadrži implementaciju http zahteva vezanih za pozorišne karte.
+
     public class KartaController : ControllerBase
     {
         private KartaService _kartaService;
@@ -34,11 +37,13 @@ namespace Server.Controllers
 
         [HttpGet]
         [AdminOnly]
+        /// Dohvata sve karte iz baze.
         public ActionResult<List<Karta>> Get() =>
             _kartaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetKarta")]
         [AdminOnly]
+        /// Dohvata odredjenu kartu na osnovu njenog id-ja.
         public ActionResult<Karta> Get(string id)
         {
             var karta = _kartaService.Get(id);
@@ -53,6 +58,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [AdminOnly]
+        /// Beleži novu kartu u bazi.
         public ActionResult<Karta> Create(Karta karta)
         {
            var k =  _kartaService.Create(karta);
@@ -64,6 +70,9 @@ namespace Server.Controllers
 
         [HttpPut("{id:length(24)}")]
         [AdminOnly]
+        /// Menja postojeću vrednost u bazi.
+        /// @param newValForKarta - nova vrednost koja treba da se nadje u bazi. 
+        /// @param id - id postojeće vrednosti koja se menja.
         public IActionResult Update(string id, Karta newValForKarta)
         {
             var karta = _kartaService.Get(id);
@@ -80,6 +89,7 @@ namespace Server.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [AdminOnly]
+        /// Briše postojeće izvodjenje iz baze na osnovu id-ja.
         public IActionResult Delete(string id)
         {
             var karta = _kartaService.Get(id);

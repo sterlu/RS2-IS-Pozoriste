@@ -9,6 +9,8 @@ namespace Server.Controllers
     
     [Route("api/[controller]")]
     [ApiController]
+    /// Kontroler za model Sala. 
+    /// Sadrži implementaciju http zahteva vezanih za pozorišne sale.
     public class SalaController : ControllerBase
     {
 
@@ -20,10 +22,12 @@ namespace Server.Controllers
         }
 
         [HttpGet]
+        /// Dohvata sve sale.
         public ActionResult<List<Sala>> Get() =>
             _salaService.Get();
 
         [HttpGet("{id:length(24)}", Name = "GetSala")]
+        /// Dohvata odredjenu salu na osnovu id-ja.
         public ActionResult<Sala> Get(string id)
         {
             var sala = _salaService.Get(id);
@@ -38,6 +42,7 @@ namespace Server.Controllers
 
         [HttpPost]
         [AdminOnly]
+        /// Beleži novu salu u bazi.
         public ActionResult<Sala> Create(Sala sala)
         {
             _salaService.Create(sala);
@@ -48,6 +53,9 @@ namespace Server.Controllers
 
         [HttpPut("{id:length(24)}")]
         [AdminOnly]
+        /// Menja postojeću vrednost u bazi.
+        /// @param newValForSala - nova vrednost koja treba da se nadje u bazi. 
+        /// @param id - id postojeće vrednosti koja se menja.
         public IActionResult Update(string id, Sala newValForSala)
         {
             var sala = _salaService.Get(id);
@@ -64,6 +72,7 @@ namespace Server.Controllers
 
         [HttpDelete("{id:length(24)}")]
         [AdminOnly]
+        /// Briše postojeće izvodjenje iz baze na osnovu id-ja.
         public IActionResult Delete(string id)
         {
             var sala = _salaService.Get(id);

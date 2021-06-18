@@ -5,6 +5,7 @@ using Server.Services;
 
 namespace Server.Models.Seed
 {
+    /// Seed za tabelu Sala.
     public class SalaSeed
     {
         

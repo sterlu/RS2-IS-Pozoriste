@@ -10,6 +10,7 @@ using System.Collections.Generic;
 
 namespace Server.Services
 {
+    /// Klasa koja pravi token za prenos podataka.
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;

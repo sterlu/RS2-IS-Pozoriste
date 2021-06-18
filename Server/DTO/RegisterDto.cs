@@ -1,5 +1,6 @@
 namespace Server.DTO
 {
+    /// Informacije potrebne za registraciju korisnika.
     public class RegisterDto
     {
         public string Username { get; set; }

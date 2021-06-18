@@ -19,6 +19,8 @@ namespace PaymentService.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    
+    /// Klasa koja reguliše proces online naplate karata.
     public class PlacanjeController : ControllerBase
     {
         private PlacanjeService placanjeService;

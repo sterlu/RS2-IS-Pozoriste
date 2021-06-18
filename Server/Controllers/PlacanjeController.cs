@@ -15,6 +15,7 @@ namespace server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /// Klasa koja reguliše proces online naplate karata.
     public class PlacanjeController : Controller
     {
         private PredstavaService predstavaService;
@@ -29,6 +30,7 @@ namespace server.Controllers
         
         [HttpPost("create")]
         [Authorize]
+        /// Kreira se sesija za online plaćanje.
         public async Task<ActionResult<string>> Create(KupovinaKarteDto[] kupovine)
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;

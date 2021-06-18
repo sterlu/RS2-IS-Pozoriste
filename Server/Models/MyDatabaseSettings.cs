@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    // Klasa u kojoj cemo cuvati vrednosti iz appsettings.json vezane za bazu
-    // Primena - u ConfigureServices za mapiranje vrednosti iz .json fajla
+    /// Klasa u kojoj se čuvaju vrednosti iz appsettings.json vezane za bazu.
+    /// Primena - u ConfigureServices za mapiranje vrednosti iz .json fajla.
     public class MyDatabaseSettings : IMyDatabaseSettings
     {
         public string KartaCollectionName { get; set; }

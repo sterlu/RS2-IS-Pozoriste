@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 
 namespace PaymentService.Models
 {
+    /// Model podataka za pozorišnu kartu.
     public class Karta
     {
         public Karta(int cena, string status, string idPredstave, string idIzvodjenja, string idRezervacije, string username)

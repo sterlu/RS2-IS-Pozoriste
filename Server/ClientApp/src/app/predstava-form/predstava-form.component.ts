@@ -39,6 +39,9 @@ export class PredstavaFormComponent implements OnInit {
     }, error => console.error(error));
   }
 
+/**
+ * Dodavanje novog izvodjenja.
+ */
   dodajIzvodjenje(): void {
     const datum = new Date(Date.now() + 24 * 60 * 60 * 1000);
     datum.setHours(20);
@@ -47,10 +50,17 @@ export class PredstavaFormComponent implements OnInit {
     this.model.izvodjenja.push(new Izvodjenje(datum, this.model.Id, this.sale[0]));
   }
 
+  /**
+   * Brisanje izvodjenja.
+   * @param i Izvodjenje
+   */
   obrisiIzvodjenje(i: number): void {
     this.model.izvodjenja.splice(i, 1);
   }
 
+  /**
+   * Validacija podataka o predstavi.
+   */
   valid(): boolean {
     if (this.model.status === 'aktivna' && this.model.izvodjenja.length === 0) {
       alert('Predstava može biti aktivna samo ako ima izvođenja.');
@@ -66,6 +76,9 @@ export class PredstavaFormComponent implements OnInit {
     return true;
   }
 
+  /**
+   * Dodavanje nove predstave.
+   */
   onSubmit(): void {
     if (!this.valid()) return;
     const payload = {

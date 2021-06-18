@@ -1,5 +1,6 @@
 namespace Server.DTO
 {
+    /// Model podataka za kupovinu karte.
     public class KupovinaKarteDto
     {
         public string PredstavaId { get; set; }

@@ -3,6 +3,7 @@ using Server.Models;
 
 namespace Server.DTO
 {
+    //TODO: iskomentarisati ovo
     public class KupovinaKarteInternalDto
     {
         public Predstava predstava { get; set; }

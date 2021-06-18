@@ -11,6 +11,7 @@ import { Router } from "@angular/router";
   templateUrl: './korpa.component.html',
   styleUrls: ['./korpa.component.scss']
 })
+
 export class KorpaComponent {
   rezervacije: Rezervacija[] = [];
   displayedColumns = ['predstava', 'izvodjenje', 'kolicina', 'cena', 'akcije'];
@@ -19,16 +20,28 @@ export class KorpaComponent {
     korpaService.stanje$.subscribe(r => this.rezervacije = r);
   }
 
+/**
+ * Izbacivanje rezervacije iz korpe.
+ * @param rez Rezervacija
+ */
   izbaciRez(rez: any): void {
     this.rezervacije.splice(this.rezervacije.indexOf(rez), 1);
     console.log(this.rezervacije);
     this.korpaService.azurirajStanje([...this.rezervacije]);
   }
 
+/**
+ * Promena kolicine karata u rezervaciji.
+ * @param rez Rezervacija
+ * @param promena
+ */
   promeniKolicinu(rez: any, promena: number) {
     this.rezervacije.find(r => r === rez).kolicina += promena;
     this.korpaService.azurirajStanje([...this.rezervacije]);
   }
+  /**
+   * Zapocinje se proces placanja.
+   */
 
   async zapocniPlacanje(): Promise<void> {
     if (!this.accountService.currentUser) {

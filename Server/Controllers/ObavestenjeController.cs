@@ -12,6 +12,8 @@ namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    /// Kontroler za model PushPretplata. 
+    /// Sadrzi implementaciju http zahteva vezanih za obavestenja korisnika o spremnim predstavama.
     public class ObavestenjeController : Controller
     {
         private PushPretplataService _pushPretplataService;
@@ -29,6 +31,7 @@ namespace Server.Controllers
         
         [HttpPost("push/subscribe")]
         [Authorize]
+        /// Beleži novu pretplatu korisnika na neku predstavu, kako bi koirsnik bio obavešten kada bude spremna za izvodjenje.
         public ActionResult<PushPretplata> Subscribe([FromBody] PushPretplata sub)
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
@@ -38,6 +41,7 @@ namespace Server.Controllers
         
         [HttpDelete("push/unsubscribe/{id}")]
         [Authorize]
+        /// Uklanja pretplatu korisnika na odredjenu predstavu, kako ne bi dobio obaveštenje za istu.
         public IActionResult Unsubscribe(string id)
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
@@ -50,6 +54,7 @@ namespace Server.Controllers
 
         [HttpGet("push/subscriptions")]
         [Authorize]
+        /// Izlistava pretplate korisnika.
         public ActionResult<PushPretplataPayloadDTO> Izlistaj()
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
@@ -66,6 +71,7 @@ namespace Server.Controllers
         
         [HttpPut("email/subscribe")]
         [Authorize]
+        /// Omogucava korisniku da prima obaveštenja elektronskom poštom.
         public void Subscribe()
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
@@ -76,6 +82,7 @@ namespace Server.Controllers
         
         [HttpPut("email/unsubscribe")]
         [Authorize]
+        /// Ukida primanje obaveštenja korisnika elektronskom poštom.
         public void Unsubscribe()
         {
             var username = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "username").Value;
@@ -85,6 +92,7 @@ namespace Server.Controllers
         }
 
         [HttpGet("posaljikartu/{idRezervacije}")]
+        /// Šalje plaćene karte elektronskom poštom.
         public IActionResult PosaljiPlacenuKartu(string idRezervacije)
         {
             _mailingService.PosaljiPlacenuKartu(idRezervacije);

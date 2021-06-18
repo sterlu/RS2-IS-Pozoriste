@@ -4,6 +4,7 @@ using Server.Models;
 
 namespace Server.Services
 {
+    /// Klasa koja sadrži metode potrebne za slanje elektronske pošte korisnicima.
     public class MailingService
     {
         private KorisnikService _korisnikService;
@@ -18,6 +19,7 @@ namespace Server.Services
             _kartaService = kartaService;
         }
 
+        /// Šalje korisnicima obavestenje elektronskom poštom da predstava uskoro počinje sa izvodnjenjem.
         public void PosaljiObavestenje(string idPredstave)
         {
             var predstava = _predstavaService.Get(idPredstave);
@@ -47,6 +49,7 @@ namespace Server.Services
 
         }
 
+        /// Šalje korisnicima karte elektronskom poštom.
         public void PosaljiKartu(string sadrzaj, string email)
         {
             var smtpClient = new SmtpClient("smtp.gmail.com")
@@ -67,7 +70,8 @@ namespace Server.Services
 
             smtpClient.Send(mailMessage);
         }
-        
+
+        /// Sastavlja sadržaj mail-a za slanje karata.
         public void PosaljiPlacenuKartu(string idRezervacije)
         {
             string kartaUsername = _kartaService.GetByRezervacijaId(idRezervacije).Username;

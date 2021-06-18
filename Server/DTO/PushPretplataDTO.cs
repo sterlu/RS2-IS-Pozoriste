@@ -3,6 +3,7 @@ using Server.Models;
 
 namespace Server.DTO
 {
+    /// Klasa koja predstavlja informacije potrebne za pretplatu korisnika.
     public class PushPretplataDTO
     {
         public string Id { get; set; }
@@ -14,6 +15,7 @@ namespace Server.DTO
             NazivPredstave = nazivPredstave;
         }
     }
+    /// TODO: iskomentarisati ovo
     public class PushPretplataPayloadDTO
     {
         public List<PushPretplataDTO> push { get; set; }

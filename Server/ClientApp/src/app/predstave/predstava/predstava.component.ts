@@ -12,7 +12,9 @@ export class PredstavaComponent {
   @Input() predstava: Predstava;
 
   constructor(private swPush: SwPush, private http: HttpClient) { }
-
+ /**
+  * Pretplata za dobijanje obaveštenja o predstavama spremnim za izvodjenje.
+  */
   subscribeToNotifications(): void {
     if (!confirm('Da li želite da budete obavešteni kada predstava bude najavljena za izvođenje?')) return;
     this.swPush.requestSubscription({

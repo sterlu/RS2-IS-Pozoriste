@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Server.Models
 {
+    /// Model podataka za korisnika.
     public class Korisnik
     {
         [BsonId] 

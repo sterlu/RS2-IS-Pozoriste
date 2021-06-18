@@ -8,6 +8,7 @@ using Server.DTO;
 
 namespace Server.Services 
 {
+    /// Servis koji omogućava čitanje, pisanje, menjanje i brisanje podataka iz tabele Korisnik.
     public class KorisnikService
     {
         private readonly IMongoCollection<Korisnik> _korisnici;
@@ -22,28 +23,35 @@ namespace Server.Services
         }
         #endregion
 
+        /// Vraća sve korisnike iz tabele.
         public List<Korisnik> Get() =>
             _korisnici.Find(korisnik => true)
                   .ToList();
 
+        /// Vraća korisnika na osnovu vrednosti atributa id.
         public Korisnik Get(string id) =>
             _korisnici.Find<Korisnik>(korisnik => korisnik.Id == id)
                   .FirstOrDefault();
 
+        /// Vraća korisnika na osnovu vrednosti atributa username.
         public Korisnik GetByUsername(string username) =>
             _korisnici.Find<Korisnik>(korisnik => korisnik.Username == username)
                   .FirstOrDefault();
 
+        /// Vraća sve korisnike koji žele da primaju obaveštenja o predstavama elektronskom poštom.
         public List<Korisnik> MailingList() =>
             _korisnici.Find<Korisnik>(korisnik => korisnik.EmailObavestenja == true)
                   .ToList();
 
+        /// Upisuje novog korisnika u bazu.
         public Korisnik Create(Korisnik korisnik)
         {
             _korisnici.InsertOne(korisnik);
             return korisnik;
         }
 
+        /// Registracija korisnika.
+        /// Upisuje novog korisnika u bazu uz heširanje lozinke.
         public Korisnik Register(string username, string password, string email, bool obavestenja,  string tip = "korisnik")
         {
             using var hmac = new HMACSHA512();
@@ -61,9 +69,14 @@ namespace Server.Services
             return Create(korisnik);
         }
 
+        /// Menja postojeću vrednost u bazi.
+        /// @param id - id vrednosti koja se menja.
+        /// @param newValForKorisnik - nova vrednost.
         public void Update(string id, Korisnik newValForKorisnik) =>
             _korisnici.ReplaceOne(korisnik => korisnik.Id == id, newValForKorisnik);
 
+        /// Menja postojeću vrednost atributa EmailObavestenja na suprotnu od postojeće. 
+        /// @param username - username koirsnika za koga se menja vrednost atributa.
         public void UpdateObavestenja(string username)
         {
             Korisnik korisnik = GetByUsername(username);
@@ -71,9 +84,11 @@ namespace Server.Services
             _korisnici.ReplaceOne(k => k.Username == username, korisnik);
         }
 
+        /// Briše korisnika iz baze.
         public void Remove(Korisnik deleteKorisnik) =>
             _korisnici.DeleteOne(korisnik => korisnik.Id == deleteKorisnik.Id);
 
+        /// Briše korisnika iz baze na osnovu vrednosti atributa id.
         public void Remove(string id) =>
             _korisnici.DeleteOne(korisnik => korisnik.Id == id);
     }

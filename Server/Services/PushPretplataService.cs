@@ -7,6 +7,7 @@ using WebPush;
 
 namespace Server.Services
 {
+    /// Servis koji omogućava čitanje, pisanje, menjanje i brisanje podataka iz tabele PushPretplata..
     public class PushPretplataService
     {
         private readonly IMongoCollection<PushPretplata> _pretplate;
@@ -23,34 +24,46 @@ namespace Server.Services
             _vapidDetails = vapidDetails;
             _predstavaService = predstavaService;
         }
+        /// Vraća sve pretplate iz baze.
 
         public List<PushPretplata> Get() =>
             _pretplate.Find(pretplata => true).ToList();
 
+        /// Vraća odredjenu pretplatu.
         public PushPretplata Get(string id) =>
             _pretplate.Find<PushPretplata>(pretplata => pretplata.Id == id).FirstOrDefault();
         
+        /// Vraća sve pretplate odredjenog korisnika.
+        /// @param username - username korisnika za koga se traže pretplate.
         public List<PushPretplata> GetForUser(string username) =>
             _pretplate.Find<PushPretplata>(pretplata => pretplata.Username == username).ToList();
 
+        /// Upisuje novu pretplatu u bazu.
         public PushPretplata Create(PushPretplata pretplata)
         {
             _pretplate.InsertOne(pretplata);
             return pretplata;
         }
 
+        /// Menja postojeću vrednost u bazi.
+        /// @param id - id vrednosti koja se menja.
+        /// @param pretplataIn - nova vrednost.
         public void Update(string id, PushPretplata pretplataIn) =>
             _pretplate.ReplaceOne(pretplata => pretplata.Id == id, pretplataIn);
 
+        /// Briše pretplatu iz baze.
         public void Remove(PushPretplata pretplataIn) =>
             _pretplate.DeleteOne(pretplata => pretplata.Id == pretplataIn.Id);
 
+        /// Briše pretplatu iz baze na osnovu vrednosti atributa id.
         public void Remove(string id) => 
             _pretplate.DeleteOne(pretplata => pretplata.Id == id);
         
+         /// Briše iz baze pretplatu odredjenog korisnika za odredjenu predstavu.
         public void Remove(string username, string idPredstave) => 
             _pretplate.DeleteOne(pretplata => pretplata.Username == username && pretplata.IdPredstave == idPredstave);
         
+        /// Obaveštava korisnika da predstava uskoro kreće sa izvodjenjem.
         public void Obavesti(string idPredstave)
         {
             

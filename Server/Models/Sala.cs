@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 
 namespace Server.Models
 {
+    /// Model podataka za pozorišnu salu.
     public class Sala
     {
         public Sala(int brojSale, int brojMesta, string naziv)

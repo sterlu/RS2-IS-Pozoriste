@@ -23,6 +23,10 @@ export class AccountService {
     return this.currentUserSource.value;
   }
 
+  /**
+   * Logovanje korisnika.
+   */
+
   login(model: any): Observable<void> {
     return this.http.post('/api/korisnik/login', model, { responseType: 'text' }).pipe(
       map((token: string) => {
@@ -39,6 +43,10 @@ export class AccountService {
     );
   }
 
+
+  /**
+   * Registracija korisnika.
+   */
   register(model: any): Observable<void> {
     return this.http.post('/api/korisnik/register', model, { responseType: 'text' }).pipe(
       map((token: string) => {
@@ -58,6 +66,9 @@ export class AccountService {
     this.currentUserSource.next(user);
   }
 
+  /**
+   * Odjavljivanje korisnika.
+   */
   logout(): void {
     localStorage.removeItem('user');
     this.currentUserSource.next(null);

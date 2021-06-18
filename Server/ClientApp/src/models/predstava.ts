@@ -1,5 +1,8 @@
 import { Izvodjenje } from './izvodjenje';
 
+/**
+ * Model predstave.
+ */
 export class Predstava {
   constructor(
     public nazivPredstave: string,
@@ -11,6 +14,10 @@ export class Predstava {
   ) {
   }
 
+  /**
+   *
+   * @returns Predstava.
+   */
   toPayload() {
     return {
       Id: this.Id,

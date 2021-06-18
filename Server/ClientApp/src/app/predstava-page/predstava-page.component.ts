@@ -31,6 +31,10 @@ export class PredstavaPageComponent implements OnInit {
     }, error => console.error(error))
   }
 
+  /**
+   * Dodavanje rezervacije za izvodjenje u korpu.
+   * @param izvodjenje
+   */
   dodajUKorpu(izvodjenje: Izvodjenje) {
     this.korpaService.dodaj(new Rezervacija(this.predstava, izvodjenje, 1))
   }

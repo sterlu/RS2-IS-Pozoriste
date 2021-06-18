@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Filters;
 namespace Server.Helpers
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+
+    // TODO: iskomentarisati ovo
     public class AdminOnlyAttribute : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)

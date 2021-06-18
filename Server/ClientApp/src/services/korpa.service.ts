@@ -18,6 +18,9 @@ export class KorpaService {
     this.ucitajPrethodnuKorpu();
   }
 
+  /**
+   * Ucitavanje prethodnog stanja korpe i pravljenje rezervacije.
+   */
   async ucitajPrethodnuKorpu() {
     console.log('korpa init');
     if (localStorage.getItem('korpa')) {
@@ -42,6 +45,10 @@ export class KorpaService {
     return this.stanjeSource.value;
   }
 
+  /**
+   * Dodavanje nove rezervacije u korpu.
+   * @param rezervacija
+   */
   dodaj(rezervacija: Rezervacija): void {
     let korpa = [...this.stanjeSource.value];
     const postojecaRez = korpa.find(r => r.izvodjenje.Id === rezervacija.izvodjenje.Id);
@@ -50,6 +57,10 @@ export class KorpaService {
     this.azurirajStanje(korpa);
   }
 
+  /**
+   * Ayuriranje stanja korpe.
+   * @param korpa
+   */
   azurirajStanje(korpa: Rezervacija[]): void {
     const _korpa = korpa.filter(r => r.kolicina > 0);
     this.stanjeSource.next(_korpa);
@@ -61,15 +72,26 @@ export class KorpaService {
     localStorage.setItem('korpa', JSON.stringify(payload))
   }
 
+  /**
+   * Brisanje sadrzaja korpe.
+   */
   ocisti(): void {
     localStorage.removeItem('korpa');
     this.azurirajStanje([]);
   }
 
+  /**
+   *
+   * @returns Broj karata u rezervacijama.
+   */
   brojRezervacija(): number {
     return this.stanje.reduce((sum, r) => sum + r.kolicina, 0);
   }
 
+  /**
+   *
+   * @returns Cena rezervacije.
+   */
   ukupnaCena(): number {
     return this.stanje.reduce((sum, r) => sum + (r.izvodjenje.cena * r.kolicina), 0);
   }

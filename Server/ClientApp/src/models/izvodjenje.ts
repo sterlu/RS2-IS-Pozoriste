@@ -1,5 +1,8 @@
 import { Sala } from './sala';
 
+/**
+ * Model izvodjenja predstave.
+ */
 export class Izvodjenje {
   constructor(
     public _datum: Date,
@@ -37,7 +40,10 @@ export class Izvodjenje {
     this._datum.setHours(+val.split(':')[0]);
     this._datum.setMinutes(+val.split(':')[1]);
   }
-
+/**
+ *
+ * @returns Izvodjenje predstave.
+ */
   toPayload() {
     console.log('toPayload');
     return {

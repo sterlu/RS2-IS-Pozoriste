@@ -7,9 +7,10 @@ using PaymentService.DTO;
 
 namespace PaymentService.Services
 {
+    /// Klasa koja reguliše proces online naplate karata.
     public class PlacanjeService
     {
-        private KartaService _kartaService;
+        private KartaService _kartaService; 
         private DomainSettings domains;
 
         public PlacanjeService(KartaService kartaService, DomainSettings domains)
@@ -18,6 +19,8 @@ namespace PaymentService.Services
             this.domains = domains;
         }
 
+        /// Kreira se sesija za online plaćanje. 
+        /// Pri uspešnoj kupovini se upisuju nove karte u bazu.
         public Session CreateSession(KupovinaKarteInternalPayloadDTO payload, string domain = "localhost:5001")
         {
             var lineItems = new List<SessionLineItemOptions> { };
@@ -86,6 +89,7 @@ namespace PaymentService.Services
             (new HttpClient()).GetAsync(domains.Server + "/api/obavestenje/posaljikartu/" + idRezervacije);
         }
 
+        /// Otkazivanje plaćanja.
         public void OtkaziPlacanje(string idRezervacije)
         {
             var karte = _kartaService.GetAllForReservation(idRezervacije);

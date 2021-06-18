@@ -6,6 +6,7 @@ using Stripe.Checkout;
 
 namespace Server.Services
 {
+    /// Klasa koja reguliše proces online naplate karata.
     public class PlacanjeService
     {
         private PredstavaService predstavaService;
@@ -25,6 +26,9 @@ namespace Server.Services
             _izvodjenjePredstaveService = izvodjenjePredstaveService;
             _mailingService = mailingService;
         }
+
+        /// Kreira se sesija za online plaćanje. 
+        /// Pri uspešnoj kupovini se upisuju nove karte u bazu.
 
         public Session CreateSession(KupovinaKarteDto[] kupovine, string username, string domain = "localhost:5001")
         {
@@ -84,6 +88,8 @@ namespace Server.Services
             return session;
         }
 
+        /// Potvrda plaćanja i slanje karata korisniku.
+        // TODO: proveriti da li li sadrzaj mail-a treba da bude ovde jer postoji funkcija u servisu za to
         public void PotvrdiPlacanje(string idRezervacije)
         {
             var karte = kartaService.GetAllForReservation(idRezervacije);
@@ -114,6 +120,7 @@ namespace Server.Services
             
         }
 
+        /// Otkazivanje plaćanja
         public void OtkaziPlacanje(string idRezervacije)
         {
             var karte = kartaService.GetAllForReservation(idRezervacije);

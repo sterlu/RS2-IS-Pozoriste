@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
 
   get f() { return this.loginForm.controls; }
 
+  /**
+   * Logovanje korisnika.
+   */
   onSubmit() {
     this.submitted = true;
     this.greska = '';
