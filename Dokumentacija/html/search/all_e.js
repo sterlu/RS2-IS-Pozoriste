@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['visualstudioconfiguration_95',['VisualStudioConfiguration',['../namespace_visual_studio_configuration.html',1,'']]]
+  ['visualstudioconfiguration_94',['VisualStudioConfiguration',['../namespace_visual_studio_configuration.html',1,'']]]
 ];

@@ -5,7 +5,7 @@ var searchData=
   ['models_50',['Models',['../namespace_payment_service_1_1_models.html',1,'PaymentService']]],
   ['page_51',['Page',['../class_page.html',1,'']]],
   ['paymentservice_52',['PaymentService',['../namespace_payment_service.html',1,'']]],
-  ['placanjecontroller_53',['PlacanjeController',['../class_payment_service_1_1_controllers_1_1_placanje_controller.html',1,'PaymentService.Controllers.PlacanjeController'],['../classserver_1_1_controllers_1_1_placanje_controller.html',1,'server.Controllers.PlacanjeController']]],
+  ['placanjecontroller_53',['PlacanjeController',['../class_payment_service_1_1_controllers_1_1_placanje_controller.html',1,'PaymentService.Controllers.PlacanjeController'],['../class_server_1_1_controllers_1_1_placanje_controller.html',1,'Server.Controllers.PlacanjeController']]],
   ['placanjeservice_54',['PlacanjeService',['../class_payment_service_1_1_services_1_1_placanje_service.html',1,'PaymentService.Services.PlacanjeService'],['../class_server_1_1_services_1_1_placanje_service.html',1,'Server.Services.PlacanjeService']]],
   ['posaljikartu_55',['PosaljiKartu',['../class_server_1_1_services_1_1_mailing_service.html#a044b81cd3a826d43a48514ce8a350d45',1,'Server::Services::MailingService']]],
   ['posaljiobavestenje_56',['PosaljiObavestenje',['../class_server_1_1_services_1_1_mailing_service.html#ac285f736ffd6ebfd189a51061b367965',1,'Server::Services::MailingService']]],

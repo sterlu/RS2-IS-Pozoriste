@@ -5,7 +5,7 @@ var hierarchy =
     ] ],
     [ "Controller", null, [
       [ "Server.Controllers.ObavestenjeController", "class_server_1_1_controllers_1_1_obavestenje_controller.html", null ],
-      [ "server.Controllers.PlacanjeController", "classserver_1_1_controllers_1_1_placanje_controller.html", null ]
+      [ "Server.Controllers.PlacanjeController", "class_server_1_1_controllers_1_1_placanje_controller.html", null ]
     ] ],
     [ "ControllerBase", null, [
       [ "PaymentService.Controllers.PlacanjeController", "class_payment_service_1_1_controllers_1_1_placanje_controller.html", null ],
@@ -29,11 +29,15 @@ var hierarchy =
     ] ],
     [ "VisualStudioConfiguration.ISetupConfiguration", "interface_visual_studio_configuration_1_1_i_setup_configuration.html", [
       [ "VisualStudioConfiguration.ISetupConfiguration2", "interface_visual_studio_configuration_1_1_i_setup_configuration2.html", [
+        [ "VisualStudioConfiguration.SetupConfiguration", "interface_visual_studio_configuration_1_1_setup_configuration.html", null ],
         [ "VisualStudioConfiguration.SetupConfiguration", "interface_visual_studio_configuration_1_1_setup_configuration.html", null ]
       ] ],
+      [ "VisualStudioConfiguration.ISetupConfiguration2", "interface_visual_studio_configuration_1_1_i_setup_configuration2.html", null ],
+      [ "VisualStudioConfiguration.SetupConfiguration", "interface_visual_studio_configuration_1_1_setup_configuration.html", null ],
       [ "VisualStudioConfiguration.SetupConfiguration", "interface_visual_studio_configuration_1_1_setup_configuration.html", null ]
     ] ],
     [ "VisualStudioConfiguration.ISetupInstance", "interface_visual_studio_configuration_1_1_i_setup_instance.html", [
+      [ "VisualStudioConfiguration.ISetupInstance2", "interface_visual_studio_configuration_1_1_i_setup_instance2.html", null ],
       [ "VisualStudioConfiguration.ISetupInstance2", "interface_visual_studio_configuration_1_1_i_setup_instance2.html", null ]
     ] ],
     [ "VisualStudioConfiguration.ISetupPackageReference", "interface_visual_studio_configuration_1_1_i_setup_package_reference.html", null ],
@@ -60,8 +64,10 @@ var hierarchy =
     [ "Server.Services.MailingService", "class_server_1_1_services_1_1_mailing_service.html", null ],
     [ "System.Web.UI.Page", null, [
       [ "Page", "class_page.html", [
+        [ "Redirect", "class_redirect.html", null ],
         [ "Redirect", "class_redirect.html", null ]
-      ] ]
+      ] ],
+      [ "Page", "class_page.html", null ]
     ] ],
     [ "PaymentService.Services.PlacanjeService", "class_payment_service_1_1_services_1_1_placanje_service.html", null ],
     [ "Server.Services.PlacanjeService", "class_server_1_1_services_1_1_placanje_service.html", null ],

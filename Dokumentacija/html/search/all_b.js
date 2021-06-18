@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['controllers_74',['Controllers',['../namespaceserver_1_1_controllers.html',1,'server.Controllers'],['../namespace_server_1_1_controllers.html',1,'Server.Controllers']]],
+  ['controllers_74',['Controllers',['../namespace_server_1_1_controllers.html',1,'Server']]],
   ['dto_75',['DTO',['../namespace_server_1_1_d_t_o.html',1,'Server']]],
   ['helpers_76',['Helpers',['../namespace_server_1_1_helpers.html',1,'Server']]],
   ['interfaces_77',['Interfaces',['../namespace_server_1_1_interfaces.html',1,'Server']]],
@@ -11,10 +11,9 @@ var searchData=
   ['salaservice_82',['SalaService',['../class_server_1_1_services_1_1_sala_service.html',1,'Server::Services']]],
   ['seed_83',['Seed',['../namespace_server_1_1_models_1_1_seed.html',1,'Server::Models']]],
   ['server_84',['Server',['../namespace_server.html',1,'']]],
-  ['server_85',['server',['../namespaceserver.html',1,'']]],
-  ['services_86',['Services',['../namespace_server_1_1_services.html',1,'Server']]],
-  ['setupconfiguration_87',['SetupConfiguration',['../interface_visual_studio_configuration_1_1_setup_configuration.html',1,'VisualStudioConfiguration']]],
-  ['setupconfigurationclass_88',['SetupConfigurationClass',['../class_visual_studio_configuration_1_1_setup_configuration_class.html',1,'VisualStudioConfiguration']]],
-  ['startup_89',['Startup',['../class_payment_service_1_1_startup.html',1,'PaymentService.Startup'],['../class_server_1_1_startup.html',1,'Server.Startup']]],
-  ['subscribe_90',['Subscribe',['../class_server_1_1_controllers_1_1_obavestenje_controller.html#a3f35361428340ec62b26fe710fe7abde',1,'Server.Controllers.ObavestenjeController.Subscribe([FromBody] PushPretplata sub)'],['../class_server_1_1_controllers_1_1_obavestenje_controller.html#a334ee6edccc66fadcadbf952a7836b54',1,'Server.Controllers.ObavestenjeController.Subscribe()']]]
+  ['services_85',['Services',['../namespace_server_1_1_services.html',1,'Server']]],
+  ['setupconfiguration_86',['SetupConfiguration',['../interface_visual_studio_configuration_1_1_setup_configuration.html',1,'VisualStudioConfiguration']]],
+  ['setupconfigurationclass_87',['SetupConfigurationClass',['../class_visual_studio_configuration_1_1_setup_configuration_class.html',1,'VisualStudioConfiguration']]],
+  ['startup_88',['Startup',['../class_payment_service_1_1_startup.html',1,'PaymentService.Startup'],['../class_server_1_1_startup.html',1,'Server.Startup']]],
+  ['subscribe_89',['Subscribe',['../class_server_1_1_controllers_1_1_obavestenje_controller.html#a3f35361428340ec62b26fe710fe7abde',1,'Server.Controllers.ObavestenjeController.Subscribe([FromBody] PushPretplata sub)'],['../class_server_1_1_controllers_1_1_obavestenje_controller.html#a334ee6edccc66fadcadbf952a7836b54',1,'Server.Controllers.ObavestenjeController.Subscribe()']]]
 ];

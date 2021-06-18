@@ -29,6 +29,7 @@ var annotated_dup =
         [ "KartaController", "class_server_1_1_controllers_1_1_karta_controller.html", "class_server_1_1_controllers_1_1_karta_controller" ],
         [ "KorisnikController", "class_server_1_1_controllers_1_1_korisnik_controller.html", "class_server_1_1_controllers_1_1_korisnik_controller" ],
         [ "ObavestenjeController", "class_server_1_1_controllers_1_1_obavestenje_controller.html", "class_server_1_1_controllers_1_1_obavestenje_controller" ],
+        [ "PlacanjeController", "class_server_1_1_controllers_1_1_placanje_controller.html", "class_server_1_1_controllers_1_1_placanje_controller" ],
         [ "PredstavaController", "class_server_1_1_controllers_1_1_predstava_controller.html", "class_server_1_1_controllers_1_1_predstava_controller" ],
         [ "SalaController", "class_server_1_1_controllers_1_1_sala_controller.html", "class_server_1_1_controllers_1_1_sala_controller" ]
       ] ],
@@ -76,11 +77,6 @@ var annotated_dup =
       ] ],
       [ "Program", "class_server_1_1_program.html", null ],
       [ "Startup", "class_server_1_1_startup.html", "class_server_1_1_startup" ]
-    ] ],
-    [ "server", "namespaceserver.html", [
-      [ "Controllers", "namespaceserver_1_1_controllers.html", [
-        [ "PlacanjeController", "classserver_1_1_controllers_1_1_placanje_controller.html", "classserver_1_1_controllers_1_1_placanje_controller" ]
-      ] ]
     ] ],
     [ "VisualStudioConfiguration", "namespace_visual_studio_configuration.html", [
       [ "IEnumSetupInstances", "interface_visual_studio_configuration_1_1_i_enum_setup_instances.html", "interface_visual_studio_configuration_1_1_i_enum_setup_instances" ],

@@ -43,7 +43,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"class_server_1_1_services_1_1_korisnik_service.html#a69c5b19fe25d0ada102cd80414baa3d6"
+"class_server_1_1_services_1_1_korisnik_service.html#a08ef986e264ae186510c1c4851d4740f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
