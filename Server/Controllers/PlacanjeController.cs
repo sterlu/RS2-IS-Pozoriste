@@ -11,7 +11,7 @@ using Server.DTO;
 using Server.Models;
 using Server.Services;
 
-namespace server.Controllers
+namespace Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
