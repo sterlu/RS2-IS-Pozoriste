@@ -16,17 +16,19 @@ cd Server/
 dotnet run
 ```
 
+Pokrenuti Payment mikroservis:
+```bash
+cd PaymentService/
+dotnet run
+```
+Dodatno, za testiranje procesa plaćanja potrebno je podesiti i pokrenuti Stripe CLI:
+```bash
+stripe listen --forward-to https://localhost:5001/api/placanje/webhook --print-json
+```
+
 ### Produkciono okruženje
 
-Pripremiti statičke fajlove klijentskog modula:
+Aplikacija je dokerizovana pa je pokretanje jednostavno:
 ```bash
-cd Server/ClientApp/
-npm install
-npm run build
-cd ../../
-```
-Pokrenuti server:
-```bash
-cd Server/
-dotnet run --launch-profile=Prod
+docker-compose up --build
 ```
