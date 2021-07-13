@@ -23,6 +23,7 @@ import { PredstavaComponent } from './predstave/predstava/predstava.component';
 import { ServiceWorkerModule } from "@angular/service-worker";
 import { environment } from '../environments/environment';
 import { IsAdminDirective } from '../helpers/is-admin.directive';
+import { IsAuthDirective } from '../helpers/is-auth.directive';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from "@angular/material-moment-adapter";
@@ -43,6 +44,7 @@ import { PretplateComponent } from './pretplate/pretplate.component';
     PredstavaFormComponent,
     PredstavaComponent,
     IsAdminDirective,
+    IsAuthDirective,
     RegisterComponent,
     LoginComponent,
     KorpaComponent,

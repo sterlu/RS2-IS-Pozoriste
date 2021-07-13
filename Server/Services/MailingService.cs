@@ -23,7 +23,10 @@ namespace Server.Services
         public void PosaljiObavestenje(string idPredstave)
         {
             var predstava = _predstavaService.Get(idPredstave);
+
             var mailingLista = _korisnikService.MailingList();
+            if (mailingLista.Count == 0) return;
+
             var body = "Predstava \""
                 + predstava.NazivPredstave
                 + "\" za koju ste zatražili obaveštenja uskoro kreće sa izvođenjem!";
@@ -43,8 +46,9 @@ namespace Server.Services
             };
             foreach(Korisnik korisnik in mailingLista)
             {
-                mailMessage.To.Add(korisnik.Email);  
+                mailMessage.To.Add(korisnik.Email);
             }
+            
             smtpClient.Send(mailMessage);
 
         }
